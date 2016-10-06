@@ -32,8 +32,7 @@
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
                                 <li class="active"><a href="#templatemo-top">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
-                                <li><a href="#templatemo-portfolio">PORTFOLIO</a></li>
-                                <li><a href="#templatemo-blog">BLOG</a></li>
+                                <li><a href="#plan">PLAN</a></li>
                                 <li><a rel="nofollow" 
                                         class="external-link" data-toggle="modal" data-target="#login">LOGIN</a></li>
                                         <li><a rel="nofollow" 

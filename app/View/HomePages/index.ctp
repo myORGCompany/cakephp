@@ -48,7 +48,7 @@
         });
 });</script>
             <!-- Carousel -->
-            <div id="templatemo-carousel" class="carousel slide" data-ride="carousel">
+            <?php /* <div id="templatemo-carousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <li data-target="#templatemo-carousel" data-slide-to="0" class="active"></li>
@@ -58,11 +58,8 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <div class="container">
-                            <div class="carousel-caption">
-                                <h1>WELCOME TO URBANIC</h1>
-                                <p>CHOOSE THE ONE SUITABLE FOR YOU</p>
-                                <p><a class="btn btn-lg btn-green" href="#" role="button" style="margin: 20px;">View Demo</a> 
-                                    <a class="btn btn-lg btn-orange" href="#" role="button">Free Download</a></p>
+                            <div class="carousel-caption" id="1pic">
+                                
                             </div>
                         </div>
                     </div>
@@ -93,13 +90,140 @@
                 </div>
                 <a class="left carousel-control" href="#templatemo-carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
                 <a class="right carousel-control" href="#templatemo-carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div><!-- /#templatemo-carousel -->
+            </div><!-- /#templatemo-carousel --> */?>
         </div>
+                                <style>
+                        * {box-sizing:border-box}
+                        {font-family: Verdana,sans-serif;}
+                        .mySlides {display:none}
 
+                        /* Slideshow container */
+                        .slideshow-container {
+                          max-width: 1000px;
+                          position: relative;
+                          margin: auto;
+                        }
+
+                        /* Caption text */
+                        .text {
+                          color: #f2f2f2;
+                          font-size: 15px;
+                          padding: 8px 12px;
+                          position: absolute;
+                          bottom: 8px;
+                          width: 100%;
+                          text-align: center;
+                        }
+
+                        /* Number text (1/3 etc) */
+                        .numbertext {
+                          color: #f2f2f2;
+                          font-size: 12px;
+                          padding: 8px 12px;
+                          position: absolute;
+                          top: 0;
+                        }
+
+                        /* The dots/bullets/indicators */
+                        .dot {
+                          height: 13px;
+                          width: 13px;
+                          margin: 0 2px;
+                          background-color: #bbb;
+                          border-radius: 50%;
+                          display: inline-block;
+                          transition: background-color 0.6s ease;
+                        }
+
+                        .active {
+                          background-color: #717171;
+                        }
+
+                        /* Fading animation */
+                        .fade {
+                          -webkit-animation-name: fade;
+                          -webkit-animation-duration: 1.5s;
+                          animation-name: fade;
+                          animation-duration: 1.5s;
+                        }
+
+                        @-webkit-keyframes fade {
+                          from {opacity: .4} 
+                          to {opacity: 1}
+                        }
+
+                        @keyframes fade {
+                          from {opacity: .4} 
+                          to {opacity: 1}
+                        }
+
+                        /* On smaller screens, decrease text size */
+                        @media only screen and (max-width: 300px) {
+                          .text {font-size: 11px}
+                        }
+                        </style>
+
+                        <div class="slideshow-container">
+
+                        <div class="mySlides fade">
+                          <img src="<?php echo ABSOLUTE_URL;?>/img/1.png" style="width:100%">
+                          <div class="text">Caption Text</div>
+                        </div>
+                        <div class="mySlides fade">
+                          <img src="<?php echo ABSOLUTE_URL;?>/img/4.jpg" style="width:100%">
+                          <div class="text">Caption Text</div>
+                        </div>
+                        <div class="mySlides fade">
+                          <img src="<?php echo ABSOLUTE_URL;?>/img/5.jpg" style="width:100%">
+                          <div class="text">Caption Text</div>
+                        </div>
+                        <div class="mySlides fade">
+                          <img src="<?php echo ABSOLUTE_URL;?>/img/6.jpg" style="width:100%">
+                          <div class="text">Caption Text</div>
+                        </div>
+
+
+                        <div class="mySlides fade">
+                          <img src="<?php echo ABSOLUTE_URL;?>/img/3.jpg" style="width:100%">
+                          <div class="text">Caption Three</div>
+                        </div>
+
+                        </div>
+                        <br>
+
+                        <div style="text-align:center">
+                          <span class="dot"></span> 
+                          <span class="dot"></span> 
+                          <span class="dot"></span>
+                          <span class="dot"></span> 
+                          <span class="dot"></span> 
+                        </div>
+
+                        <script>
+                        var slideIndex = 0;
+                        showSlides();
+
+                        function showSlides() {
+                            var i;
+                            var slides = document.getElementsByClassName("mySlides");
+                            var dots = document.getElementsByClassName("dot");
+                            for (i = 0; i < slides.length; i++) {
+                               slides[i].style.display = "none";  
+                            }
+                            slideIndex++;
+                            if (slideIndex> slides.length) {slideIndex = 1}    
+                            for (i = 0; i < dots.length; i++) {
+                                dots[i].className = dots[i].className.replace(" active", "");
+                            }
+                            slides[slideIndex-1].style.display = "block";  
+                            dots[slideIndex-1].className += " active";
+                            setTimeout(showSlides, 2000); // Change image every 2 seconds
+                        }
+                        </script>
         <div class="templatemo-welcome" id="templatemo-welcome">
             <div class="container">
                 <div class="templatemo-slogan text-center">
-                    <span class="txt_darkgrey">Welcome to </span><span class="txt_orange">Urbanic Design</span>
+                    <span class="txt_darkgrey">Welcome to </span><span class="txt_orange">Fortune Power</span>
                     <p class="txt_slogan"><i>Lorem ipsum dolor sit amet, consect adipiscing elit. Etiam metus libero mauriec ignissim fermentum.</i></p>
                 </div>  
             </div>
@@ -130,7 +254,7 @@
                                 <img src="<?php echo ABSOLUTE_URL;?>/img/mobile.png" alt="icon"/>
                                 <span class="templatemo-service-item-header">FULLY RESPONSIVE</span>
                             </div>
-                            <p>Urbanic is a Bootstrap template from templatemo that is available for free instant download. Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Unsplash</a> for images used in this template. You do not need to provide a credit link to us. You may spread a word about templatemo. Thank you.</p>
+                            <p>Fortune is a Money creating web portal that is available for free instant . Credits go to <a rel="nofollow" href="http://getbootstrap.com" target="_parent">Bootstrap</a> and <a rel="nofollow" href="http://unsplash.com" target="_parent">Fortune Power</a>  You may spread a word about Fortune. Thank you.</p>
                             <div class="text-center">
                                 <a href="#" 
                                     class="templatemo-btn-read-more btn btn-orange">READ MORE</a>
@@ -158,7 +282,129 @@
                 </div>
             </div>
         </div>
+        <div id="plan" style=" background-image:url(http://localhost/cakephp/images/money3.jpg); background-repeat:repeat-x; padding-top:10px; padding-bottom:10px;">
+            <div class="container"><!-- start main -->
+            <div>
+            <div class="row well" style="">
+                <div class="top_grid_top" style=" border:1px solid# CCC; border-radius:5px;  ">
+                    <div class="col-md-12 span1_of_1">
+                        <h3 style="color:#000;">Welcome To Fortune Power</h3>
+                        <p>
+                            We are an International Direct Selling Company having Alliances and Channel partners all  across the World. 
+                            We are one of the fastest growing  Companies in the Network Marketing Industry today and are creating waves with our superb and revolutionary line of products meshed with a Global Business Opportunity.
 
+                                Our turnkey Business system is the finest in the industry which has been 
+                                acclaimed and validated by Experts from around the globe.
+                              <br>
+                              <br>
+                              <div class="col-md-2 span1_of_2">
+                </div>
+                  </p>
+                </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="row well">
+    <div class="main_grid">
+        <div class="top_grid"><!-- start top_grid -->
+          <div class="col-md-12 rupes-left wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+            <div class="rup-left"></div>
+            <div class="rup-rgt">
+                <h4><a href="#">Opportunity</a></h4>
+                <span style="font-size:14pt;">
+                <table width="100%" border="1" align="center" bordercolor="#999999">
+                      <tr>
+                        <td width="13%" scope="col" align="center"><strong>Sr.No</strong></td>
+                        <td width="27%" scope="col" align="center"><strong>Investment amount</strong></td>
+                        <td width="18%" scope="col" align="center"><strong>Return monthly </strong></td>
+                        <td width="26%" scope="col" align="center"><strong>Period </strong></td>
+                        <td width="16%" scope="col" align="center"><strong>Total return </strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">1.</td>
+                        <td scope="col" align="center">10000</td>
+                        <td scope="col" align="center"><strong>1250</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>15000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">2.</td>
+                        <td scope="col" align="center">25000</td>
+                        <td scope="col" align="center"><strong>3000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>36000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">3.</td>
+                        <td scope="col" align="center"><strong>50000</strong></td>
+                        <td scope="col" align="center"><strong>6000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>72000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">4.</td>
+                        <td scope="col" align="center"><strong>100000</strong></td>
+                        <td scope="col" align="center"><strong>12000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>144000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">5.</td>
+                        <td scope="col" align="center"><strong>200000</strong></td>
+                        <td scope="col" align="center"><strong>24000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>288000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">6.</td>
+                        <td scope="col" align="center"><strong>300000</strong></td>
+                        <td scope="col" align="center"><strong>36000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>432000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">7.</td>
+                        <td scope="col" align="center"><strong>400000</strong></td>
+                        <td scope="col" align="center"><strong>48000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>576000</strong></td>
+                      </tr>
+                      <tr>
+                        <td scope="col" align="center">8</td>
+                        <td scope="col" align="center"><strong>500000</strong></td>
+                        <td scope="col" align="center"><strong>60000</strong></td>
+                        <td scope="col" align="center"><strong>12 month</strong></td>
+                        <td scope="col" align="center"><strong>720000</strong></td>
+                      </tr>
+                      <tr>
+                        <td colspan="5" scope="col"><p><u><strong>INCOME PLAN:-</strong></u></p></td>
+                      </tr>
+                     <tr>
+                        <td colspan="5" scope="col">
+                            <ul>
+                                <li><strong>* There are 5 types of income in this plan.</strong></li><br>
+                                <li>1:-Sponcer  Income</li> 
+                                <li>2:- Direct Income per month </li>
+                                <li>3:- Lavel Income </li>
+                                <li>4:-Awards & Rewards</li>
+                                <li>5:-Bonenza</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" scope="col"><p><u><strong>Sponcer income:-</strong></u> </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" scope="col"><p>The Sponcer Â income  will be 8%</p></td>
+                    </tr>
+                </table> </span>  
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div></div>
         <div class="templatemo-team" id="templatemo-about">
             <div class="container">
                 <div class="row">
@@ -239,7 +485,7 @@
             </div>
         </div><!-- /.templatemo-team -->
 
-        <div id="templatemo-portfolio" >
+    <?php /*    <div id="templatemo-portfolio" >
             <div class="container">
                 <div class="row">
                     <div class="templatemo-line-header" >
@@ -605,6 +851,7 @@
                 </div>
             </div>
         </div>
+        */ ?>
 <?php  
     if (!empty($this->params['url']['status'])) {
         if($this->params['url']['status'] == 2){ 

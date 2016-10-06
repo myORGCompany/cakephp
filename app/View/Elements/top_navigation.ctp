@@ -7,7 +7,7 @@
                     </div>
                     <div id="email" class="pull-right">
                             <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            info@company.com
+                            info@fortunepower.co.in
                     </div>
                 </div>
             </div>

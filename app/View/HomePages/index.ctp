@@ -300,7 +300,7 @@
             </div>
         </div>
         <div class="row well">
-            <h4><a href="#">Opportunity</a></h4>
+            <h4 class="text-success"><strong>Opportunity</strong></h4>
             <table class="table table-striped ">
                 <p style="font-size: 18px;"><strong>There are 5 types of income in this plan.*</strong></p>
                   <tr class="white-bg" >

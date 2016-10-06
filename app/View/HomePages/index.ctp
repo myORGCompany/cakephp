@@ -132,7 +132,7 @@
                           background-color: #bbb;
                           border-radius: 50%;
                           display: inline-block;
-                          transition: background-color 0.6s ease;
+                          transition: background-color 0.1s ease;
                         }
 
                         .active {
@@ -142,9 +142,9 @@
                         /* Fading animation */
                         .fade {
                           -webkit-animation-name: fade;
-                          -webkit-animation-duration: 1.5s;
+                          -webkit-animation-duration: 4s;
                           animation-name: fade;
-                          animation-duration: 1.5s;
+                          animation-duration: 4s;
                         }
 
                         @-webkit-keyframes fade {

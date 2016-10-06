@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Urbanic Free Website Template</title>
+        <title>Wellcome to Fortune Power </title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 

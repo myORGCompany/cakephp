@@ -167,25 +167,24 @@
 
                         <div class="mySlides fade">
                           <img src="<?php echo ABSOLUTE_URL;?>/img/1.png" style="width:100%">
-                          <div class="text">Caption Text</div>
+                          
                         </div>
                         <div class="mySlides fade">
                           <img src="<?php echo ABSOLUTE_URL;?>/img/4.jpg" style="width:100%">
-                          <div class="text">Caption Text</div>
+                          
                         </div>
                         <div class="mySlides fade">
                           <img src="<?php echo ABSOLUTE_URL;?>/img/5.jpg" style="width:100%">
-                          <div class="text">Caption Text</div>
+                          
                         </div>
                         <div class="mySlides fade">
                           <img src="<?php echo ABSOLUTE_URL;?>/img/6.jpg" style="width:100%">
-                          <div class="text">Caption Text</div>
+                          
                         </div>
 
 
                         <div class="mySlides fade">
                           <img src="<?php echo ABSOLUTE_URL;?>/img/3.jpg" style="width:100%">
-                          <div class="text">Caption Three</div>
                         </div>
 
                         </div>

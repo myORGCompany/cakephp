@@ -359,8 +359,16 @@
                   <tr style="color:#5e001b;" class="text-center"><td><strong>8th lavel </strong></td> <td><strong>4 month </strong></td> <td><strong>Nano</strong></td></tr>
                   <tr style="color:#5e001b;" class="text-center"><td><strong>9th lavel </strong></td> <td><strong>5 month</strong></td>  <td><strong>honda city</strong></td> </tr>
             </table> 
+             <table class="table table-striped">
+                <tr><strong >TEARMS & CONDITIONS* :</strong></tr><br /><br />
+                <p class="text-info"><strong> Frist participate have to pay 500 for pin
+                then 1500rs have to do the payment via link </strong></p>
+                <p class="text-info"><strong>Only 1 ID can be registered on 1 mobile number</strong></p>
+                <p class="text-info"><strong> Income withdrawal on weekend every Saturday  n get help links comes on monday</strong></p>
+                <p class="text-info"><strong>Active Zone & Safe Zone income will b given with the help of all india pool</strong></p>
+                <p class="text-success"><strong>All the best for all achivers in Fortune Power</strong></p>
+            </table>
         </div>
-
     </div>
 </div>
 <div class="clearfix"></div>

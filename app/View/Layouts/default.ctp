@@ -21,11 +21,12 @@
         <title>Wellcome to Fortune Power </title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> <!-- or use local jquery -->
+<script src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script> <!-- or use local jquery -->
 <script src="<?php echo ABSOLUTE_URL;?>/js/jqBootstrapValidation.js"></script>
-
-
+<script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script> <!-- or use local jquery -->
+<script src="<?php echo ABSOLUTE_URL;?>/js/jqBootstrapValidation.js"></script>
+<script src="<?php echo ABSOLUTE_URL;?>/js/stickUp.min.js"  type="text/javascript"></script>
+<script src="<?php echo ABSOLUTE_URL;?>/js/colorbox/jquery.colorbox-min.js"  type="text/javascript"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,11 +39,9 @@
         <link href="<?php echo ABSOLUTE_URL;?>/css/bootstrap.css" rel='stylesheet' type='text/css'>
 
         <!-- Custom styles for this template -->
-        <link href="<?php echo ABSOLUTE_URL;?>/js/colorbox/colorbox.css"  rel='stylesheet' type='text/css'>
+         <link href="<?php echo ABSOLUTE_URL;?>/js/colorbox/colorbox.css"  rel='stylesheet' type='text/css'>
+        <link href="<?php echo ABSOLUTE_URL;?>/css/style.css"  rel='stylesheet' type='text/css'>
         <link href="<?php echo ABSOLUTE_URL;?>/css/templatemo_style.css"  rel='stylesheet' type='text/css'>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/colorbox/jquery.colorbox-min.js"  type="text/javascript"></script>
-        <script src="<?php echo ABSOLUTE_URL;?>/js/templatemo_script.js"  type="text/javascript"></script>
 
     </head> 
 <body>

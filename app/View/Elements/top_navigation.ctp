@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo ABSOLUTE_URL;?>/css/fortune.css">
 
+<script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrapValidator.min.js"></script>
 <div class="templatemo-top-bar" id="templatemo-top">
             <div class="container">

@@ -9,7 +9,7 @@ http://www.templatemo.com/tm-395-urbanic
 body, html { overflow-x:hidden; }
 
 body {
-    background-color: #ffffff;
+    
     font-family:  'Open Sans', Arial, Helvetice Neue, sans-serif;
     font-size: 12px;
 	
@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
 }
-
+#containt{display: none;}
 .templatemo_clear {
 	clear: both;
 }
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 /* ------ Carousel ----- */
 
 #templatemo-carousel {
-    background: url('../img/1.png') no-repeat center center fixed; 
+    background: url('../images/templatemo_carousel_bg_s.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
     }
 
     #templatemo-carousel .carousel-caption {
-        padding-bottom: 140px;
+        padding-bottom: 40px;
         right: 20%;
         left: 20%;
     }
@@ -139,7 +139,8 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 }
 
 .templatemo-service {
-    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-top: 100px;
 }
 
 .templatemo-service-item {
@@ -461,7 +462,7 @@ h1, h2, h3, h4, h5, h6, span, p { font-family: 'Open Sans', Arial, Helvetice Neu
 
 .templatemo-footer {
 	border-top: 2px solid #cccccc; 
-	margin-top: 100px;
+	margin-top: 0px;
 }
 
 .footer_container {
@@ -576,7 +577,7 @@ ul.templatemo-project-gallery  li  a img:hover {
     font-family:  'Open Sans', sans-serif;
     font-size:20px;
     color:#ffffff;
-    margin-top:100px;
+    margin-top:0px;
 }
 
 .form-control {
@@ -657,7 +658,7 @@ ul.templatemo-project-gallery  li  a img:hover {
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 100%) {
   .navbar-nav > li > a {
     padding-top: 9px;
     padding-bottom: 9px;

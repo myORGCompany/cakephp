@@ -33,6 +33,9 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 	//public $components = array('DebugKit.Toolbar');
   var $isLogin = false;
+  public function beforeFilter() {
+    //$this->Session->write('pop',0);
+  }
 	function _import($model, $constructor = null) {
       try {
         if (!$this->loadModel($model)) {

@@ -104,4 +104,54 @@ class DeshBoardController extends AppController {
 			return false;
 		}
 	}
+	function checkMemberShipByEmail($emailId = '') {
+        $isAvailbale = true;
+        $message = false;
+        $this->autoRender = false;
+        $this->layout = null;
+        if (trim($emailId) == '')
+            $emailId = $this->data['email'];
+        //check if email exists on some mail server
+        $isMember = false;
+        $loginData = $this->User->find('first', array(
+            'fields' => array("User.id"),
+            'conditions' => array('User.email' => $emailId)
+        ));
+        if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
+            $isMember = (int) $loginData['User']['id'];
+        }
+        if ($isMember) {
+	        $message = 'This email is already registered.';
+	        $isAvailbale = false;
+            
+        } 
+        echo json_encode(array('valid' => $isAvailbale, 'message' => $message));
+        exit;
+    }
+    function checkMemberShipByMobile($mobile = '') {
+        $isAvailbale = true;
+        $message = false;
+        $this->autoRender = false;
+        $this->layout = null;
+
+        if (trim($mobile) == '')
+            $mobile = $this->data['User']['mobile'];
+
+        // condition added if mobile number is changed from profile page
+        if ($mobile == "") {
+            $mobile = $this->data['mobile'];
+        }
+        $replace_str = array(" ", "(", ")", "-", "+");
+        $mobile = str_replace($replace_str, "", $mobile);
+
+        //check if already registered
+        $UserId = $this->User->checkMemberShipByMobile($mobile);
+        if ((int) $UserId) {
+            $isAvailbale = false;
+            $message = 'This mobile number is already registered';
+        }
+        echo json_encode(array('valid' => $isAvailbale, 'message' => $message));
+        exit;
+    }
+
 }

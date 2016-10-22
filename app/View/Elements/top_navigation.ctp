@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="<?php echo ABSOLUTE_URL;?>/css/fortune.css">
+
+<script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrapValidator.min.js"></script>
 <div class="templatemo-top-bar" id="templatemo-top">
             <div class="container">
                 <div class="subheader">
@@ -30,29 +33,16 @@
                             
                             <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard') { ?> 
                               <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="#templatemo-top">HOME</a></li>
+                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/">HOME</a></li>
                                 <li><a href="#templatemo-about">ABOUT</a></li>
-                                <li><a href="#plan">PLAN</a></li>
+                                <li><a href="<?php echo ABSOLUTE_URL;?>/plan">PLAN</a></li>
                                 <li><a rel="nofollow" 
                                         class="external-link" data-toggle="modal" data-target="#login">LOGIN</a></li>
                                         <li><a rel="nofollow" 
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                <li><a href="#templatemo-contact">CONTACT</a></li></ul>
+                                <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/contactUs/">CONTACT</a></li></ul>
                                 <?php } else {  ?>
-                                  <ul class="nav navbar-nav navbar-right active" style="margin-top: 40px;">
-                                    <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                      </ul>
-                                    </li>
-                                  </ul>
+                                  
                                   <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
                                 <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li> </ul>
                                 <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;"><li class="active"><a id="bank"  
@@ -116,18 +106,17 @@
       </div>
   </div>
   
-  <script type="text/javascript">
+  <div class="clearfix"></div>
+  
+         <script type="text/javascript">
 
 $(document).ready(function(){
-     $('ul.nav li.dropdown').hover(function() {
-  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-}, function() {
-  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-});
+  $('#navigation').css('position','fixed').css('top','30');
+
    
     $("#reg").click(function(){
         $("#close").click();
-        setTimeout(show_reg, 1000));
+        setTimeout(show_reg, 1000);
        
     });
 
@@ -137,6 +126,15 @@ function show_reg(){
   alert("DDDDD");
      $("#register").click();
 }
+var elementPosition = $('#navigation').offset();
+
+// $(window).scroll(function(){
+//         if($(window).scrollTop() > elementPosition.top){
+//               $('#navigation').css('position','fixed').css('top','30');
+//         } else {
+//             $('#navigation').css('position','static');
+//         }    
+// });
 
 
 

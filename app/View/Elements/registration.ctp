@@ -1,44 +1,47 @@
+<style type="text/css">
+  .text-bold{color:#000000 ;}
+</style>
 <div id="signUpForm"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
-          <div class="modal-header">
-              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">Register hare........</h4>
+          <div class="modal-header text-bold">
+              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true" ><b class="text-bold">X</b></span><span class="sr-only"><strong>Close</strong></span></button>
+              <strong><h4 class="modal-title" id="myModalLabel">Register hare........</h4></strong>
           </div>
           <div class="modal-body">
               <div class="row">
                   <div class="col-xs-12">
                   <div class="well">
-                      <form id="regForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/registration" data-toggle="validator" >
-                              <div class="form-group control-group">
-                              <div class="form-group control-group">
+                      <form id="regForm" method="POST" action="javascript:void(0);" data-toggle="validator" >
+                              <div class="form-group control-group controls">
                                   <label for="Name" class="control-label">Name</label>
                                   <input type="text" class="form-control" id="Name" name="Name" value="" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
+                              <div class="form-group control-group controls">
                                   <label for="email" class="control-label" >Username</label>
                                   <input type="text" class="form-control" id="email" name="email" title="Please enter you username" placeholder="example@gmail.com" required="">
                                   <span class="help-block"></span>
                               </div>
-                              <div class="form-group control-group">
+                              <div class="form-group control-group controls">
                                   <label for="password" class="control-label">Password</label>
                                   <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
-                              <div class="form-group control-group">
+                              <div class="form-group control-group controls">
                                   <label for="mobile" class="control-label">mobile</label>
                                   <input type="integer" class="form-control" id="mobile" name="mobile" value="" required="" title="Please enter your mobile number">
                                   <span class="help-block"></span>
                               </div>
                               <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
-                             <div class="checkbox">
-                                  <label>
-                                      <input type="checkbox" name="remember" id="remember"> Remember login
-                                  </label>
-                                  <p class="help-block">(if this is a private computer)</p>
-                              </div>
+                             
                               <button type="submit" class="btn btn-success btn-block">Register</button>
                           </form>
+                          <div class="form-group hidden control-group" id="feedback">
+                                  <p id=feedbackblok class="control-label" ></p>
+                          </div>
+                          <p id="already" class="margin-top-20"><a id="alreadyReg" href="javascript:void(0);" class="text-info btn-block">Already register! Click hare to login</a></p>
                       </div>
+
                   </div>
               </div>
           </div>
@@ -46,68 +49,14 @@
   </div>
 <script>
 
-
-
-    /*
-     * @author Sumit Kumar
-     * @param {String} cCode
-     * @returns {bool} true if valid country code
-     */
-    function isCountryCode(cCode) {
-
-        var isValid = false;
-        var fChar = cCode.charAt(0);
-        if (fChar === '+') {
-            var mNumber = cCode.substring(1, cCode.length);
-            if (mNumber.length <= 3 && parseInt(mNumber)) {
-                var reg = new RegExp('^[0-9]+$');
-                isValid = reg.test(mNumber);
-            }
-        }
-
-        return isValid;
-    }
-    function hideError(){
-        $('.help-block').hide();
-    }
     $(document).ready(function () {
-
-
-        $("#viewPassword").change(function () {
-            var _this = $(this);
-            var isChecked = _this.is(":checked");
-            if (isChecked) {
-                $("#passwordp").hide();
-                $("#passwordt").show();
-            } else {
-
-                $("#passwordp").show();
-                $("#passwordt").hide();
-            }
-        });
-        $("#passwordp").change(function () {
-            $("#passwordt").val($(this).val());
-        });/*
- * $(r2Form).find("[name='data[JsLogin][mobile_number]']").on('change', function () {
-    $(r2Form).bootstrapValidator("revalidateField", "data[JsLogin][country_code]")
-    }).end().
-            find("[name='data[JsLogin][country_code]']").on('change', function () {
-    $(r2Form).bootstrapValidator("revalidateField", "data[JsLogin][mobile_number]")
-    }).
-            end().
-        */
-        $("#JsLoginRegistrationForm").find("[name='data[JsLogin][mobile_number]']").on('change', function () {
-    $("#JsLoginRegistrationForm").bootstrapValidator("revalidateField", "data[JsLogin][country_code]")
-    }).end().
-            find("[name='data[JsLogin][country_code]']").on('change', function () {
-    $("#JsLoginRegistrationForm").bootstrapValidator("revalidateField", "data[JsLogin][mobile_number]")
-    }).
-            end().bootstrapValidator({
+        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
+        $("#regForm").bootstrapValidator({
             live: false,
             trigger: 'blur',
             fields: {
-                "data[JsLogin][first_name]": {
-                    selector: "#JsLoginFirstName",
+                "Name": {
+                    selector: "#Name",
                     validators: {
                         notEmpty: {
                             enabled: true,
@@ -125,9 +74,9 @@
                         }
                     }
                 },
-                "data[JsLogin][emailid]": {
+                "email": {
                     message: "Please Enter emailid",
-                    selector: "#JsLoginEmailid",
+                   
                     validators: {
                         notEmpty: {
                             enabled: true,
@@ -137,15 +86,14 @@
                             message: 'Please enter a valid E-mail address'
                         },
                         remote: {
-                            message: "This email is already registered",
-                            url: ABSOLUTE_URL + "/js_logins/checkMemberShipByEmail",
+                            message: "This Email is already registered",
+                            url: ABSOLUTE_URL + "/desh_board/checkMemberShipByEmail",
                             trigger: 'blur'
                         }
                     }
                 },
-                "data[JsLogin][password]": {
+                "password": {
                     message: "Please chose a password with at least 7 chars",
-                    selector: "#passwordp",
                     validators: {
                         notEmpty: {
                             enabled: true,
@@ -162,7 +110,7 @@
                         },
                     }
                 },
-                "data[JsLogin][mobile_number]": {
+                "mobile": {
                     message: "Enter 10 digit phone number",
                     validators: {
                         notEmpty: {
@@ -170,7 +118,7 @@
                         },
                         remote: {
                             message: "This mobile number is already registered",
-                            url: ABSOLUTE_URL + "/js_logins/checkMemberShipByMobile",
+                            url: ABSOLUTE_URL + "/desh_board/checkMemberShipByMobile",
                             trigger: 'blur'
                         },
                         callback: {
@@ -180,27 +128,12 @@
                                 if (value === '') {
                                     return(true);
                                 }
-
-                                var country_code = $("#country-code").val();
-                                country_code = country_code.replace(/\s/g, '');
-                                country_code = country_code.replace('+', '');
-                                if (country_code != "")
-                                    $("#country-code").val("+" + country_code);
-                                else {
-                                    return{
-                                        valid: false
-                                    }
-                                }
                                 myString = value.replace(/ /g, '');
-                               if (((myString.length == 10) && (country_code == "91"))) {
+                               if (((myString.length == 10))) {
                                     return {
                                         valid: true,
                                     };
-                                } else if ((country_code != "91" && country_code != "") && myString.length >= 3) {
-                                    return {
-                                        valid: true,
-                                    };
-                                }
+                                } 
                                 else {
                                     return {
                                         valid: false,
@@ -214,121 +147,38 @@
                             }
                         }//END CALL BACK
                     }
-                }, //end mob vlidate
-                "data[JsLogin][country_code]": {
-                    message: "Enter a valid country code",
-                    validators: {
-                        notEmpty: {
-                            message: 'Enter country code'
-                        }
-                        , callback: {
-                            message: 'Enter a valid country code',
-                            callback: function (value, validator, $field) {
-
-                                if (value === '') {
-                                   return(true);
-                                }
-                                var country_code = value;
-                                country_code = country_code.replace(/\s/g, '');
-                                if (isNaN(country_code) || country_code.length == 0) {
-
-                                    return {
-                                        valid: false,
-                                        message: 'Enter a valid country code'
-                                    };
-                                }
-                                country_code = country_code.replace('+', '');
-                                $("#country-code").val("+" + country_code);
-                                return {
-                                    valid: true,
-                                };
-                            }
-                        }
-                    }
-                }//end country code validation
+                }
             }
 
-        }).ajaxForm({
-            dataType: 'JSON',
-            success: function (data) {
+        }).on('success.form.bv', function(e) {
+                    
+                    // Prevent form submission
+                    e.preventDefault();
 
-                if (!data.hasError) {
-                    if(typeof(data.job_alert_id)!=undefined && data.job_alert_id){
-                        window.location.href = ABSOLUTE_URL + '/JsJobAlerts/view/'+data.job_alert_id;
-                    }
-                    else{
-                        var membershipPlan = $(".membershipPlan:checked").val();
-                        if (membershipPlan = 1) {
-                            if ($('#jobId')) {
-                                window.location.href = ABSOLUTE_URL + '/js_my_pages/myPageR2/r2/' + $('#jobId').val();
+                    $.ajax({
+                        dataType: "JSON",
+                        url: ABSOLUTE_URL + "/home_pages/registration",
+                        data: $('#regForm').serialize(),
+                        type: "POST",
+                        success: function(res) {
+                            if (res.hasError === true) {
+                                $("#regForm").html(res.messages).show().removeClass('hide');
                             } else {
-                                window.location.href = ABSOLUTE_URL + '/js_my_pages/myPageR2';
+                                $("#feedbackblok").append('Thank You Your registration completed An Approval mail sended to your registered emailid kindly Confirm your email id to login');
+                                $("#regForm").addClass('hidden');
+                                $("#already").addClass('hidden');
+                                $("#feedback").removeClass('hidden');
                             }
-                        } else {
-                            window.location.href = ABSOLUTE_URL + '/shopping_carts/buyNow/' + membershipPlan;
+
                         }
-                    }
-
-                }
-            },
-            error: function () {
-            }
-        });
-    });
-    function setGA() {
-        var membershipPlan = $(".membershipPlan:checked").val();
-        ga('send', 'event', 'Registration', 'R1 - Join Now', membershipPlan);
-    }
-    $(document).ready(function () {
-        $("#mobile-number").keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                    // Allow: Ctrl+A
-                            (e.keyCode == 65 && e.ctrlKey === true) ||
-                            // Allow: Ctrl+C
-                                    (e.keyCode == 67 && e.ctrlKey === true) ||
-                                    // Allow: Ctrl+X
-                                            (e.keyCode == 88 && e.ctrlKey === true) ||
-                                            // Allow: home, end, left, right
-                                                    (e.keyCode >= 35 && e.keyCode <= 39)) {
-                                        // let it happen, don't do anything
-                                        return;
-                                    }
-                                    // Ensure that it is
-                                    //  a number and stop the keypress
-                                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-
-                                        //alert(e.keyCode);
-                                        e.preventDefault();
-                                    }
-                                });
                     });
-
-</script>
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        var domains = [ 'gmail.com', 'hotmail.com', 'rediffmail.com' ];
-        var secondLevelDomains = [ 'hotmail', 'headhonchos' ];
-        var topLevelDomains = [ "com", "net", "org" ];
-            jQuery( '#JsLoginEmailid' ).on( 'blur', function() {
-                jQuery(this).mailcheck({
-                domains: domains,
-                secondLevelDomains: secondLevelDomains,
-                topLevelDomains: topLevelDomains,
-                suggested: function( element, suggestion ) {
-                    console.log("suggestion ", suggestion.full);
-                    jQuery('.email-suggestion').html("Did you mean <a id='fill-email-suggestion'>" + suggestion.full + "</a>?");
-                },
-                empty: function( element ) {
-                     jQuery('.email-suggestion').html('');
-                }
-            });
-        });
-        jQuery(document).on( 'click', '#fill-email-suggestion', function() {
-            var suggestion = jQuery( '#fill-email-suggestion' ).text();
-            jQuery( '#JsLoginEmailid' ).val( suggestion );
-            jQuery('.email-suggestion').html('');
-            jQuery( "#JsLoginRegistrationForm" ).bootstrapValidator( "revalidateField", "data[JsLogin][emailid]" );
-        });
+                });
     });
+    // function openClose(){
+    //   $("#regForm").addClass('hidden');
+    //   $("#already").addClass('hidden');
+    //   //$("#classdiv").removeClass('col-xs-6').addClass('col-xs-12');
+    //   $("#feedback").removeClass('hidden');
+    // }
+   
 </script>

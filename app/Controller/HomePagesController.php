@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('UserBank','GiveHelp','User','GetHelp');
+	public $uses = array('UserBank','GiveHelp','User','GetHelp','PopLead');
 
 /**
  * Displays a view
@@ -90,5 +90,24 @@ class HomePagesController extends AppController {
 		$this->Session->delete('User');
 		$this->Session->destroy();
 		$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
+	}
+	function saveLead(){
+		$this->Session->write('pop',1);
+		$data['name'] = $this->data['fname'];
+		$data['email'] = $this->data['email_id'];
+		$data[mobile] = $this->data['mobile'];
+		if($this->PopLead->save($data)){
+			echo 1;
+			exit;
+		} else{
+			echo 0;
+			exit;
+		}	
+	}
+	function contactUs(){
+		
+	}
+	function plan(){
+		
 	}
 }

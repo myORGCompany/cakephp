@@ -1,6 +1,6 @@
 
-        <div id="plan" style=" background-image:url(http://localhost/cakephp/images/money3.jpg); background-repeat:repeat-x; padding-top:10px; padding-bottom:10px;">
-    <div class="container">
+ <div id="plan" style=" background-image:url(http://localhost/cakephp/images/money3.jpg); background-repeat:repeat-x; padding-top:10px;  padding-bottom:10px;">
+    <div class="container" style="margin-top: 30px;">
         <div class="row well" style="">
             <div class="top_grid_top" style=" border:1px solid# CCC; border-radius:5px;  ">
                 <div class="col-md-12 span1_of_1">

@@ -12,7 +12,7 @@
     
 }
 </style>
-<div class="modal-dialog modal-dialog-width-650 modal fade" data-backdrop="static" data-keyboard="false" align="center" id='diwaliPopUp'>
+<div class="modal-dialog modal-dialog-width-650 modal fade" data-backdrop="static" data-keyboard="false" align="center" id='diwaliPopUp' >
 <button id="close" type="button" class="close hidden" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
     <div class="modal-content">
  <div class="modal-body modal-body-padding">
@@ -61,7 +61,7 @@
 
         $('#diwaliPopUp').modal('show');
 $(document).ready(function () {
-    
+    $('#navigation').css('position','fixed').css('top','30');
         ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
         $("#popLead").bootstrapValidator({
             live: false,

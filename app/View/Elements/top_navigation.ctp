@@ -1,62 +1,67 @@
-<link rel="stylesheet" type="text/css" href="<?php echo ABSOLUTE_URL;?>/css/fortune.css">
-
 <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/js/bootstrapValidator.min.js"></script>
-<div class="templatemo-top-bar" id="templatemo-top">
+<link rel="stylesheet" type="text/css" href="<?php echo ABSOLUTE_URL;?>/css/fortune.css">
+<style type="text/css">
+
+.icon-bar{background-color: #000000!important;}
+.font-14{font-size: 14px; font-weight: bold; color:#ffffff !important;}
+.font-22{font-size: 22px; font-weight: bold; color:#ffffff !important;}
+.navbar-fixed-top{background-color: #5e001b !important;}
+</style>
+<div class="templatemo-top-bar" id="templatemo-top"  >
+        <div id="flashMessage" class="message text-center">
+            <?php echo $this->Session->flash(); ?>
+        </div>*/?>
+<div class="navbar  navbar-default navbar-fixed-top transparent-nav" role="navigation" id="siteNavigation">
+    <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+             <a href="" class="navbar-brand font-22">Fortune Power</a>
+    </div>
             <div class="container">
                 <div class="subheader">
-                    <div id="phone" class="pull-left">
-                            <img src="<?php echo ABSOLUTE_URL;?>/img/phone.png" alt="phone"/>
-                            090-080-0110
-                    </div>
-                    <div id="email" class="pull-right">
-                            <img src="<?php echo ABSOLUTE_URL;?>/img/email.png" alt="email"/>
-                            info@fortunepower.co.in
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="templatemo-top-menu">
-            <div class="container">
-                <!-- Static navbar -->
-                <div class="navbar navbar-default" role="navigation">
-                    <div class="container">
-                        <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                </button>
-                                <a href="#" class="navbar-brand"><img src="<?php echo ABSOLUTE_URL;?>/img/templatemo_logo.png" alt="Urbanic Template" title="Urbanic Template" /></a>
-                        </div>
-                        <div class="navbar-collapse collapse" id="templatemo-nav-bar">
+                    <div class="navbar-collapse col-xs-12 row pull-right collapse subheader" id="templatemo-nav-bar" style="margin-top:-5px;">
                             
-                            <?php if ($this->params['controller'] == 'home_pages' && $this->action != 'deshBoard') { ?> 
-                              <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/">HOME</a></li>
-                                <li><a href="#templatemo-about">ABOUT</a></li>
-                                <li><a href="<?php echo ABSOLUTE_URL;?>/plan">PLAN</a></li>
-                                <li><a rel="nofollow" 
+                            <?php if(!$this->Session->read('User')){?> 
+                             <ul class="nav navbar-nav navbar-right" >
+                                <li class="active"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/">HOME</a></li>
+                                <li><a class="font-14" href="#templatemo-about">ABOUT</a></li>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/plan">PLAN</a></li>
+                                <li><a class="font-14" rel="nofollow" 
                                         class="external-link" data-toggle="modal" data-target="#login">LOGIN</a></li>
-                                        <li><a rel="nofollow" 
+                                        <li><a class="font-14" rel="nofollow" 
                                         class="external-link" id="register" data-toggle="modal" data-target="#signUpForm">REGISTER</a></li>
-                                <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/contactUs/">CONTACT</a></li></ul>
-                                <?php } else {  ?>
-                                  
-                                  <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;">
-                                <li class="active"><a href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li> </ul>
-                                <ul class="nav navbar-nav navbar-right" style="margin-top: 40px;"><li class="active"><a id="bank"  
-                                        data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/contactUs/">CONTACT</a></li></ul>
+                                <?php } else {  if($this->action == 'help') {?>
+                                  <ul class="nav navbar-nav navbar-right" style=" margin-right: 32px !important;">
+                                  <?php } else { ?>
+                                    <ul class="nav navbar-nav navbar-right" style=" ">
+                                    <?php } ?>
+                                    <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
+                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/desh_board/getTree">View Team</a></li>
+                                      <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
+                                       <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Total Income<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li><a   href="<?php echo ABSOLUTE_URL;?>/ManageProducts">Active-Zone Income</a>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/products">Working-Zone Income</a></li> 
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/viewList">Safe-Zone Income</a></li>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/view.html">Royality</a></li>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/viewParchese.html">View all</a></li>
+                                        </ul>
+                                        </li>
+                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
+                                      <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
 
                                <?php } ?>
-                            
-                        </div><!--/.nav-collapse -->
-                    </div><!--/.container-fluid -->
-                </div><!--/.navbar -->
-            </div> <!-- /container -->
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
         </div>
-       
+</div>
+</div>
+        
   <div id="login"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
           <div class="modal-header">
@@ -107,42 +112,16 @@
       </div>
   </div>
   
-  <div class="clearfix"></div>
-  
-         <script type="text/javascript">
-
-$(document).ready(function(){
-  $('#navigation').css('position','fixed').css('top','30');
-
-   
-    $("#reg").click(function(){
-        $("#close").click();
-        setTimeout(show_reg, 1000);
-       
-    });
-
-});
-
-function show_reg(){
-  alert("DDDDD");
-     $("#register").click();
-}
-var elementPosition = $('#navigation').offset();
-
-// $(window).scroll(function(){
-//         if($(window).scrollTop() > elementPosition.top){
-//               $('#navigation').css('position','fixed').css('top','30');
-//         } else {
-//             $('#navigation').css('position','static');
-//         }    
-// });
-
-
-
-
-// function hidepopup()
-// {
-//    $("#loginform").fadeOut();
-//    $("#loginform").css({"visibility":"hidden","display":"none"});
-// }
+  <input type="hidden" id="tempLoginVar" value="0" /> 
+ 
+<script type="text/javascript">
+   $('ul.nav li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn(150);
+      }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut(150);
+      });
+        $("#alreadyReg").click(function(){
+            $("#signUpForm .close").click();
+            $("#loginli").click();
+        });
 </script>

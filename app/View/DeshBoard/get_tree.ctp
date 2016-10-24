@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
     <link rel="stylesheet" type="text/css" href="<?php echo ABSOLUTE_URL;?>/css/jquery-treetable.css">
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
@@ -13,9 +13,10 @@
 </head>
 <?php $userData = $this->Session->read('User'); ?>
 </div>
-<div class="container text-center" >
-    <h1>Your Team</h1>
-    <table align="center" style='margin-top: 50px;'>  
+<div class="container" style='margin-bottom: 50px;' >
+    <h3>Your Team</h3>
+    <p>Please click on your id to see your team</p>
+    <table>  
         <tr>
             <td>
                 <div class="tt" data-tt-id="<?php echo $userData['email'];?>" data-tt-parent=""><?php echo $userData['email'];?></div>

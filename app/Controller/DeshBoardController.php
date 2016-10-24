@@ -181,7 +181,7 @@ class DeshBoardController extends AppController {
         exit;
     }
     function getTree($option){
-        $this->layout = null;
+        //$this->layout = null;
         set_time_limit(0);
         $userData = $this->Session->read('User');
         $data['email'] = $userData['email'];

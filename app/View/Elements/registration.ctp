@@ -32,6 +32,11 @@
                                   <input type="integer" class="form-control" id="mobile" name="mobile" value="" required="" title="Please enter your mobile number">
                                   <span class="help-block"></span>
                               </div>
+                               <div class="form-group control-group controls">
+                                  <label for="sponcer" class="control-label">Sponcer Id</label>
+                                  <input type="text" class="form-control" id="sponcer" name="sponcer" value="" required="" title="Please enter your Sponcer Id" placeholder="example@gmail.com">
+                                  <span class="help-block"></span>
+                              </div>
                               <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
                              
                               <button type="submit" class="btn btn-success btn-block">Register</button>
@@ -88,6 +93,24 @@
                         remote: {
                             message: "This Email is already registered",
                             url: ABSOLUTE_URL + "/desh_board/checkMemberShipByEmail",
+                            trigger: 'blur'
+                        }
+                    }
+                },
+                "sponcer": {
+                    message: "Please Enter sponcer emailid",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter an E-mail address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid E-mail address'
+                        },
+                        remote: {
+                            message: "This Email is not registered",
+                            url: ABSOLUTE_URL + "/desh_board/isRegistered",
                             trigger: 'blur'
                         }
                     }

@@ -55,6 +55,7 @@ class HomePagesController extends AppController {
 			$data['password'] = md5($this->data['password']);
 			$data['name'] = $this->data['Name'];
 			$data['mobile'] = $this->data['mobile'];
+			$data['sponcer'] = $this->data['sponcer'];
 			$this->Session->write('User',$data);
 			$data1 = $User->save($data);
 			$data['UserId'] = $data1['User']['id'];
@@ -95,14 +96,19 @@ class HomePagesController extends AppController {
 		$this->Session->write('pop',1);
 		$data['name'] = $this->data['fname'];
 		$data['email'] = $this->data['email_id'];
-		$data[mobile] = $this->data['mobile'];
-		if($this->PopLead->save($data)){
+		$data['mobile'] = $this->data['mobile'];
+		if( empty($this->User->checkMemberShipByMobile($data['mobile'])) ) {
+			if($this->PopLead->save($data)){
 			echo 1;
 			exit;
-		} else{
-			echo 0;
+			} else{
+				echo 0;
+				exit;
+			}	
+		} else {
+			echo 1;
 			exit;
-		}	
+		}
 	}
 	function contactUs(){
 		

@@ -36,12 +36,12 @@
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group" id="emailid">
-                                  <label for="email" class="control-label" >Email</label>
-                                  <input type="text" class="form-control" id="email_id" name="email_id" title="Email or user name" description="user email or username" placeholder="example@gmail.com" required="">
+                                  <label for="Contact" class="control-label" >Contact</label>
+                                  <input type="text" class="form-control" id="email_id" name="email_id" title="Please enter your contact number" description="Contact" required="">
                                   <span class="help-block"></span>
                               </div>
                               <div class="form-group control-group" id="pass">
-                                  <label for="contact" class="control-label">contact</label>
+                                  <label for="contact" class="control-label">City</label>
                                   <input type="text" title="contact" description="user contact" class="form-control" id="contact" name="contact" required="" title="Please enter your contact number">
                                   <span class="help-block"></span>
                               </div>
@@ -67,16 +67,13 @@ $(document).ready(function () {
             live: false,
             trigger: 'blur',
             fields: {
-                "email_id": {
-                    message: "Please Enter emailid",
+                "contact": {
+                    message: "Please Enter your city name",
                    
                     validators: {
                         notEmpty: {
                             enabled: true,
-                            message: 'Please enter an E-mail address'
-                        },
-                        emailAddress: {
-                            message: 'Please enter a valid E-mail address'
+                            message: 'Please enter your city name'
                         }
                     }
                 },
@@ -89,7 +86,7 @@ $(document).ready(function () {
                         }
                     }
                 },
-                "contact": {
+                "email_id": {
                     message: "Enter 10 digit phone number",
                     validators: {
                         notEmpty: {

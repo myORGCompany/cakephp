@@ -153,5 +153,55 @@ class DeshBoardController extends AppController {
         echo json_encode(array('valid' => $isAvailbale, 'message' => $message));
         exit;
     }
+    function checkMemberShipEmail($emailid){
+    	$this->autoRender = false;
+        $this->layout = null;
+        if (trim($emailId) == '')
+            $emailId = $this->data['sponcer'];
+        //check if email exists on some mail server
+        $isMember = false;
+        $loginData = $this->User->find('first', array(
+            'fields' => array("User.id"),
+            'conditions' => array('User.email' => $emailId)
+        ));
+        if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
+            $isMember = (int) $loginData['User']['id'];
+        }
+        return $isMember;
+    }
+    public function isRegistered() {
+        $isMember = false;
+        $this->autoRender = false;
+        $this->layout = null;
+        $loginId = $this->checkMemberShipEmail($this->data['sponcer']);
+        if ((int) $loginId) {
+            $isMember = true;
+        }
+        echo json_encode(array('valid' => $isMember));
+        exit;
+    }
+    function getTree($option){
+        $this->layout = null;
+        set_time_limit(0);
+        $userData = $this->Session->read('User');
+        $data['email'] = $userData['email'];
+        $this->getRecursiveIcon($data['email']);
+        $this->set('use',$GLOBALS['SessionData']);
+    }
+    
+    function getRecursiveIcon($email){
+        set_time_limit(0);
+        $users = $this->User->find('all', array(
+            'fields' => array("User.email",'User.sponcer'),'conditions' => array('User.sponcer' => $email)
+        ));
 
+        if(!empty($users)){
+            foreach ($users as $key => $value) {
+
+                $GLOBALS['SessionData'][] = $value['User'];
+                
+                $this->getRecursiveIcon($value['User']['email']); 
+            }
+        }
+    }
 }

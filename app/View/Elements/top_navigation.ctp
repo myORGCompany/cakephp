@@ -42,11 +42,11 @@
                                        <li class="dropdown ">
                                         <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Total Income<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
-                                        <li><a   href="<?php echo ABSOLUTE_URL;?>/ManageProducts">Active-Zone Income</a>
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/products">Working-Zone Income</a></li> 
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/viewList">Safe-Zone Income</a></li>
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/view.html">Royality</a></li>
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/viewParchese.html">View all</a></li>
+                                        <li><a   href="<?php echo ABSOLUTE_URL;?>/desh_board/income/active">Active-Zone Income</a>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/working">Working-Zone Income</a></li> 
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/safe">Safe-Zone Income</a></li>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/royality">Royality</a></li>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/all">View all</a></li>
                                         </ul>
                                         </li>
                                       <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>

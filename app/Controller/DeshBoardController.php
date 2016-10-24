@@ -185,7 +185,20 @@ class DeshBoardController extends AppController {
         set_time_limit(0);
         $userData = $this->Session->read('User');
         $data['email'] = $userData['email'];
-        $this->getRecursiveIcon($data['email']);
+        if ($userData['membership'] == 'safezone') {
+            $users = $this->User->find('all', array(
+            'fields' => array("User.email",'User.sponcer'),'conditions' => array('User.id >' => $userData['UserId'])
+            ));
+            foreach ($users as $key => $value) {
+                $value['User']['sponcer'] = $data['email'];
+                
+                $GLOBALS['SessionData'][] = $value['User'];
+            }
+
+        } else{
+            $this->getRecursiveIcon($data['email']);
+        }
+        
         $this->set('use',$GLOBALS['SessionData']);
     }
     
@@ -203,5 +216,25 @@ class DeshBoardController extends AppController {
                 $this->getRecursiveIcon($value['User']['email']); 
             }
         }
+    }
+    function income($type = null){
+
+        switch ($type) {
+            case "active":
+                $tp = 'Active-Zone';
+                break;
+            case "working":
+            $tp = 'Working-Zone';
+                break;
+            case "safe":
+            $tp = 'Safe-Zone';
+                break;
+            case "all":
+                $tp = 'All-Zone';
+                break;
+            default:
+                $tp = 'All-Zone';
+        }
+        $this->set('zone',$tp);
     }
 }

@@ -191,14 +191,14 @@ class DeshBoardController extends AppController {
             ));
             foreach ($users as $key => $value) {
                 $value['User']['sponcer'] = $data['email'];
-                
                 $GLOBALS['SessionData'][] = $value['User'];
             }
-
         } else{
+             $GLOBALS['SessionData'][0]['email'] = $data['email'];
+             $GLOBALS['SessionData'][0]['sponcer'] = $data['email'];
             $this->getRecursiveIcon($data['email']);
         }
-        
+        //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
         $this->set('use',$GLOBALS['SessionData']);
     }
     

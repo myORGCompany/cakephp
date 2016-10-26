@@ -34,7 +34,7 @@
                     <h3>Fortune-Power Help Desk</h3>
                     <div class="col-sm-12 padding-left-0 padding-top-7">
                         <div class="margin-top-15">
-                            <i class="fa fa-phone-square"></i> &nbsp; Call @  +91 8109342601 ( Mon-Fri, 9:30 am - 6:30 pm)
+                            <i class="fa fa-phone-square"></i> &nbsp; Call @  +91 7878787878 ( Mon-Fri, 9:30 am - 6:30 pm)
                         </div>
                         <div class="clearfix"></div>
                         <div class="margin-top-7">

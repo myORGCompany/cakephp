@@ -24,7 +24,7 @@
                             <?php if(!$this->Session->read('User')){?> 
                              <ul class="nav navbar-nav navbar-right" >
                                 <li class="active"><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/">HOME</a></li>
-                                <li><a class="font-14" href="#templatemo-about">ABOUT</a></li>
+                                <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/about">ABOUT</a></li>
                                 <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/plan">PLAN</a></li>
                                 <li><a class="font-14" rel="nofollow" 
                                         class="external-link" data-toggle="modal" data-target="#login">LOGIN</a></li>
@@ -51,6 +51,7 @@
                                         </li>
                                       <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
                                       <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
+                                       <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/about">ABOUT</a></li>
 
                                <?php } ?>
                     </div>

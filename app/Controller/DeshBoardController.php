@@ -73,6 +73,7 @@ class DeshBoardController extends AppController {
 		}
 	}
 	function adminLogin(){
+        $user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$data['giveHelp'] = $this->GiveHelp->find('all', array( 'fields' =>array('User.name','GiveHelp.user_id','GiveHelp.amount','GiveHelp.start_time','User.email'),'conditions' => array('GiveHelp.is_active' => 1),
 			'joins' => array(
@@ -181,7 +182,7 @@ class DeshBoardController extends AppController {
         exit;
     }
     function getTree($option){
-        //$this->layout = null;
+        $user_id = $this->_checkLogin();
         set_time_limit(0);
         $userData = $this->Session->read('User');
         $data['email'] = $userData['email'];
@@ -219,7 +220,7 @@ class DeshBoardController extends AppController {
         }
     }
     function income($type = null){
-
+        $user_id = $this->_checkLogin();
         switch ($type) {
             case "active":
                 $tp = 'Active-Zone';

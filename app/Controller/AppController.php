@@ -56,12 +56,20 @@ class AppController extends Controller {
       }
     }
     function _checkLogin() {
-        if($this->Session->read('User')) {
-           $isLogin =1;
-           $this->Session->write('isLogin' , 1);
-          return true;
+        if( $this->Session->read('User') ) {
+           $Login =1;
+           $this->Session->write('Login' , 1);
+           $user = $this->Session->read('User');
+           if($user['status'] == 1){
+                $user_id =$user['UserId'];
+                return $user_id;
+           } else {
+                $this->Session->delete('User');
+                $this->Session->destroy();
+                $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=5' ) );
+           }
         } else {
-            return false;
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=6' ) );
         }
     }
 }

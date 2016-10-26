@@ -31,9 +31,7 @@ class HomePagesController extends AppController {
 	}
 
 	function deshBoard() {
-		if(!$this->_checkLogin()) {
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index' ) );
-		}
+		$user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
 		$this->layout="default";
 		$HelpData['bank'] = $this->UserBank->find('first', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
@@ -56,6 +54,7 @@ class HomePagesController extends AppController {
 			$data['name'] = $this->data['Name'];
 			$data['mobile'] = $this->data['mobile'];
 			$data['sponcer'] = $this->data['sponcer'];
+			$data['status'] = 1;
 			$this->Session->write('User',$data);
 			$data1 = $User->save($data);
 			$data['UserId'] = $data1['User']['id'];
@@ -77,6 +76,7 @@ class HomePagesController extends AppController {
 				$data['email'] = $login_detail['User']['email'];
 				$data['password'] = $login_detail['User']['password'];
 				$data['mobile'] = $login_detail['User']['mobile'];
+				$data['status'] = $login_detail['User']['status'];
 				$this->Session->write('User',$data);
 				if(!empty($login_detail['User']['is_admin']) && $login_detail['User']['is_admin'] ==1) {
 					$this->redirect( array( 'controller' => 'desh_board', 'action' => 'adminLogin' ) );

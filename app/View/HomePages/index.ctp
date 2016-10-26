@@ -741,6 +741,10 @@
             $alert = "You are already registered please goto login";
         } else if ($this->params['url']['status'] == 4) {
             $alert = "you have registered successfully please proceed for login";
+        }else if ($this->params['url']['status'] == 5) {
+            $alert = "Your account is not active please contact to your sponcer";
+        }else if ($this->params['url']['status'] == 6) {
+            $alert = "Session time out please login again";
         }?>
         <script> alert("<?php echo $alert;?>");
              window.location = "<?php echo ABSOLUTE_URL?>"+ "/home_pages/index";

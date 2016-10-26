@@ -38,7 +38,7 @@ class HomePagesController extends AppController {
 		$HelpData['giveHelpData'] = $this->GiveHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		//$HelpData['getHelpData'] = $this->GetHelp->find('all', array( 'conditions' => array('is_active' => 1,'user_id' =>$userData['UserId'])));
 		$HelpData['userData'] = $this->User->find('all', array( 'conditions' => array('status' => 1,'id' =>$userData['UserId'])));
-		echo '<pre>';print_r($HelpData);die;
+		//echo '<pre>';print_r($HelpData);die;
 		
 		$this->set('HelpData',$HelpData);
 	}

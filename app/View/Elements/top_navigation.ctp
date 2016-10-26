@@ -39,6 +39,16 @@
                                     <?php } ?>
                                     <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
                                       <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/desh_board/getTree">View Team</a></li>
+                                        <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Teams<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li><a   href="<?php echo ABSOLUTE_URL;?>/AllIndiaActives">All India Active-Zone</a>
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/MyTeam">My Team</a></li> 
+                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/AllIndiaSafeZone">All India Safe-Zone</a></li>
+                                        </ul>
+                                        </li>
+
+
                                       <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
                                        <li class="dropdown ">
                                         <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Total Income<span class="caret"></span></a>
@@ -75,7 +85,7 @@
           </div>
           <div class="modal-body">
               <div class="row">
-                  <div class="col-xs-6">
+                  <div class="col-xs-12 col-md-6 col-lg-6">
                       <div class="well">
                           <form id="loginForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/logins/" data-toggle="validator" >
                               <div class="form-group control-group">
@@ -96,11 +106,20 @@
                                   <p class="help-block">(if this is a private computer)</p>
                               </div>
                               <button type="submit" class="btn btn-success btn-block">Login</button>
-                              <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
+                              <a href="javascript:openClose();"  class="btn btn-default btn-block">Help to login</a>
+                          </form>
+                           <form id="forgotForm" class="hidden" method="POST" action="javascript:void(0);" data-toggle="validator" >
+                              <div class="form-group control-group" id="emailid">
+                                  <label for="email" class="control-label" >Please Enter Your Email Hare..</label>
+                                  <input type="text" class="form-control" id="email" name="email" title="User Email or username" placeholder="example@gmail.com" required="">
+                                  
+                                  <span class="help-block"></span>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-block">Submit</button>
                           </form>
                       </div>
                   </div>
-                  <div class="col-xs-6">
+                  <div class="col-md-6 col-lg-6 hidden-xs ">
                       <p class="lead">Register now for <span class="text-success">FREE</span></p>
                       <ul class="list-unstyled" style="line-height: 2">
                           <li><span class="fa fa-check text-success"></span> See all your orders</li>
@@ -120,7 +139,21 @@
   <input type="hidden" id="tempLoginVar" value="0" /> 
  
 <script type="text/javascript">
-   $('ul.nav li.dropdown').hover(function() {
+   
+    function openClose(){
+      $("#loginForm").addClass('hidden');
+      $("#addDiv").addClass('hidden');
+      $("#classdiv").removeClass('col-xs-6').addClass('col-xs-12');
+      $("#forgotForm").removeClass('hidden');
+    }
+    function openreg(){
+     // $("#reg").click(function(){
+            $("#login .close").click();
+            $("#register").click();
+       // });
+    }
+    $(document).ready(function () {
+     $('ul.nav li.dropdown').hover(function() {
         $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeIn(150);
       }, function() {
         $(this).find('.dropdown-menu').stop(true, true).delay(50).fadeOut(150);
@@ -129,4 +162,74 @@
             $("#signUpForm .close").click();
             $("#loginli").click();
         });
+        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";        
+      
+         $("#forgotForm").bootstrapValidator({
+            live: false,
+            trigger: 'blur',
+            fields: {
+                "email": {
+                    message: "Please Enter emailid",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter an E-mail address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid E-mail address'
+                        },
+                        remote: {
+                            message: "This Email is not registered",
+                            url: ABSOLUTE_URL + "/desh_board/isRegisteredEmail",
+                            trigger: 'blur'
+                        }
+                    }
+                }
+            }
+
+        })   .on('success.form.bv', function(e) {
+                    // Prevent form submission
+                    e.preventDefault();
+                    // $.ajax({
+                    //     dataType: "JSON",
+                    //     url: ABSOLUTE_URL + "/desh_board/ajaxLogin",
+                    //     data: $('#loginForm').serialize(),
+                    //     type: "POST",
+                    //     success: function(res) {
+                    //         if (res.hasError === true) {
+                    //             $("#loginForm").html(res.messages).show().removeClass('hide');
+                    //         } else {
+                    //             window.location.href = res.redirect;
+                    //         }
+
+                    //     }
+                    // });
+                    alert("Password hase been send to your mail id");
+                    $("#login .close").click();
+                    $('#forgotForm')[0].reset();
+                    $('#loginForm')[0].reset();
+                    $('#loginForm').removeClass('hidden');
+                    $('#forgotForm').addClass('hidden');
+                    $("#addDiv").removeClass('hidden');
+                    $("#classdiv").addClass('col-xs-6').removeClass('col-xs-12');
+                });
+    });
+    function resendMail(email){
+       $.ajax({
+            dataType: "JSON",
+            url: "<?php echo ABSOLUTE_URL;?>/desh_board/resendVarificationMail",
+            data: {emailid : email},
+            type: "POST",
+            success: function(res) {
+                if (res.hasError === true) {
+                    $("#loginForm").html(res.messages).show().removeClass('hide');
+                } else {
+                    alert("Somthing gatting wrong");
+                }
+
+            }
+        });
+    }
+   
 </script>

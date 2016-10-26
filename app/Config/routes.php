@@ -33,6 +33,9 @@
 	Router::connect('/plan', array('controller' => 'home_pages', 'action' => 'plan'));
 	Router::connect('/about', array('controller' => 'home_pages', 'action' => 'aboutUs'));
 	Router::connect('/franchise', array('controller' => 'home_pages', 'action' => 'pinShop'));
+	Router::connect('/AllIndiaActives', array('controller' => 'desh_board', 'action' => 'getTreeActive'));
+	Router::connect('/MyTeam', array('controller' => 'desh_board', 'action' => 'getTree'));
+	Router::connect('/AllIndiaSafeZone', array('controller' => 'desh_board', 'action' => 'getTreeSafeZon'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

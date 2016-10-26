@@ -109,7 +109,6 @@
                             message: 'Please enter a valid E-mail address'
                         },
                         remote: {
-                            message: "This Email is not registered",
                             url: ABSOLUTE_URL + "/desh_board/isRegistered",
                             trigger: 'blur'
                         }
@@ -191,6 +190,8 @@
                                 $("#regForm").addClass('hidden');
                                 $("#already").addClass('hidden');
                                 $("#feedback").removeClass('hidden');
+                                $("#regForm").addClass('hidden');
+                                window.location = res.redirect;
                             }
 
                         }

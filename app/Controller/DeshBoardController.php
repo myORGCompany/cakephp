@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone');
 
 /**
  * Displays a view
@@ -157,14 +157,16 @@ class DeshBoardController extends AppController {
     function checkMemberShipEmail($emailid){
     	$this->autoRender = false;
         $this->layout = null;
-        if (trim($emailId) == '')
-            $emailId = $this->data['sponcer'];
+
+        if (trim($emailid) == '')
+            $emailid = $this->data['sponcer'];
         //check if email exists on some mail server
         $isMember = false;
         $loginData = $this->User->find('first', array(
             'fields' => array("User.id"),
-            'conditions' => array('User.email' => $emailId)
+            'conditions' => array('User.email' => $emailid)
         ));
+        
         if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
             $isMember = (int) $loginData['User']['id'];
         }
@@ -175,6 +177,35 @@ class DeshBoardController extends AppController {
         $this->autoRender = false;
         $this->layout = null;
         $loginId = $this->checkMemberShipEmail($this->data['sponcer']);
+        if ((int) $loginId) {
+            $isMember = true;
+        } else {
+            $message = "This Email is not registered";
+        }
+        $cnt = $this->User->CheckDirectIds($this->data['sponcer']);
+        if (count($cnt['ids']) >= 3) {
+            $isMember = false;
+            $message = "This Member Complete 3 directs please chose other one";
+        }
+        echo json_encode(array('valid' => $isMember,'message' => $message));
+        exit;
+    }
+    public function validateSponcer() {
+        $isValid = true;
+        $this->autoRender = false;
+        $this->layout = null;
+        $cnt = $this->User->CheckDirectIds($this->data['sponcer']);
+        if (count($cnt['ids']) >= 3) {
+            $isValid = false;
+        }
+        echo json_encode(array('valid' => $isValid));
+        exit;
+    }
+    function isRegisteredEmail(){
+        $isMember = false;
+        $this->autoRender = false;
+        $this->layout = null;
+        $loginId = $this->checkMemberShipEmail($this->data['email']);
         if ((int) $loginId) {
             $isMember = true;
         }
@@ -209,7 +240,82 @@ class DeshBoardController extends AppController {
        //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
         $this->set('use',$GLOBALS['SessionData']);
     }
-    
+    function getTreeSafeZon($option){
+        $user_id = $this->_checkLogin();
+        $this->autoRender = false;
+        //$this->layout = null;
+        set_time_limit(0);
+        $userData = $this->Session->read('User');
+        $data['email'] = $userData['email'];
+        
+            $users = $this->User->find('all', array(
+            'fields' => array("User.email",'User.sponcer','mobile','payment'),'conditions' => array('User.id >' => $userData['UserId'])
+            ));
+        $parant =0;
+        if($userData['payment'] == 1){
+            $treeData[0]['image'] = ABSOLUTE_URL.'/img/user1.png';
+        } else {
+            $treeData[0]['image'] = ABSOLUTE_URL.'/img/user2.png';
+        }
+        $treeData[0]['key'] = 0;
+        $treeData[0]['mobile'] = $users[0]['User']['mobile'];
+        $treeData[0]['parant'] = "";
+            foreach ($users as $key => $value) {
+                $i = $key+1;
+                if($key %2 ==0 && $key >= 2){
+                    $parant++;
+                }
+                if (!empty($users[$i])) {
+                    if($users[$i]['payment'] == 1){
+                        $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user1.png';
+                    } else {
+                        $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user2.png';
+                    }
+                    $treeData[$i]['key'] = $i;
+                    $treeData[$i]['mobile'] = $users[$i]['User']['mobile'];
+                    $treeData[$i]['parant'] = $parant;
+                }
+            }
+        
+       //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
+        $this->set('use',$treeData);
+        $this->render('get_tree_active');
+    }
+    function getTreeActive(){
+        $user_id = $this->_checkLogin();
+        set_time_limit(0);
+        $userData = $this->Session->read('User');
+        $data['email'] = $userData['email'];
+        $users = $this->User->find('first', array(
+            'fields' => array("email",'sponcer','created'),'conditions' => array('id' => $userData['UserId'])
+            ));
+        $activeUsers = $this->ActiveZone->find('all', array(
+            'fields' => array("User.mobile",'ActiveZone.id','ActiveZone.created'),
+            'conditions' => array('ActiveZone.created >=' => $users['User']['created']),
+            'joins' => array(
+                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('ActiveZone.user_id = User.id'))
+                ),
+            'order' => 'ActiveZone.created'
+            ));
+        $parant =0;
+        $treeData[0]['key'] = 0;
+        $treeData[0]['mobile'] = $activeUsers[0]['ActiveZone']['created'];
+        $treeData[0]['parant'] = "";
+        $treeData[0]['image'] = ABSOLUTE_URL.'/img/user1.png';
+        foreach ($activeUsers as $key => $value) {
+            $i = $key+1;
+            if($key %2 ==0 && $key >= 2){
+                $parant++;
+            }
+            if (!empty($activeUsers[$i])) {
+                $treeData[$i]['key'] = $i;
+                $treeData[$i]['mobile'] = $activeUsers[$i]['ActiveZone']['created'];
+                $treeData[$i]['parant'] = $parant;
+                $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user1.png';
+            }
+        }
+        $this->set('use',$treeData);
+    }
     function getRecursiveIcon($mobile){
         set_time_limit(0);
         $users = $this->User->find('all', array(

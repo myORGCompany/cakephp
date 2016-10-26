@@ -45,22 +45,37 @@ class HomePagesController extends AppController {
 	function registration() {
 		$this->autoRender = false;
 	    $this->layout = "";
+	     $response = array(
+            'hasError' => true,
+            'messages' => "Either email or password is incorrect!",
+            'redirect' => false
+        );
 		$User = $this->_import("User");
+		$ActiveZone = $this->_import("ActiveZone");
 		$login_detail = $User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
 		if(!empty($login_detail)) {
 			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=1' ) );
 		} else {
+			$childs = $User->CheckDirectIds($this->data['sponcer']);
 			$data['email'] = $this->data['email'];
 			$data['password'] = md5($this->data['password']);
 			$data['name'] = $this->data['Name'];
 			$data['mobile'] = $this->data['mobile'];
-			$data['sponcer'] = $this->data['sponcer'];
+			$data['sponcer'] = $childs['mobile'];
 			$data['status'] = 1;
 			$this->Session->write('User',$data);
 			$data1 = $User->save($data);
+			if (count($childs['ids']) >= 2) {
+				$sponcerData['user_id'] = $childs['user_id'];
+				$sponcerData['directs'] = implode(",", $childs['ids']);
+				$User->updateAll(array("direct_complete"=>1),array("id"=>$sponcerData['user_id']));
+				$ActiveZone->save($sponcerData);
+			} 
 			$data['UserId'] = $data1['User']['id'];
 			$this->Session->write('User',$data);
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+			$response = array('hasError' => false, 'messages' => null,'redirect' => ABSOLUTE_URL.'/home_pages/deshBoard'); 
+			echo json_encode($response);
+			
 		}
 	}
 

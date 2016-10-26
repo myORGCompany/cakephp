@@ -34,7 +34,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 02);
+	Configure::write('debug', 0);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -397,3 +397,4 @@ $fullurl=FULL_BASE_URL.'/cakephp';
 
 define('ABSOLUTE_URL',$fullurl);
 define('STATIC_PATH',$fullurl);
+define('GO_JS_PATH',FULL_BASE_URL.'/cakephp/release/go.js');

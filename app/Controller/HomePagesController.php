@@ -16,7 +16,7 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('UserBank','GiveHelp','User','GetHelp','PopLead');
+	public $uses = array('UserBank','GiveHelp','User','GetHelp','PopLead','PinShop');
 
 /**
  * Displays a view
@@ -121,5 +121,10 @@ class HomePagesController extends AppController {
 	}
 	function aboutUs(){
 		
+	}
+	function pinShop(){
+		$PinShop = $this->PinShop->find('all', array( 'conditions' => array('status' => 1)));
+		$this->set('pinShop' ,$PinShop );
+		//echo '<pre>';print_r($PinShop);die;
 	}
 }

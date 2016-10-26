@@ -158,7 +158,7 @@
         nodeDataArray.push({
           key: "<?php echo $value['mobile'];?>",
           parent:"<?php echo $value['sponcer'];?>",
-          source: "<?php echo ABSOLUTE_URL;?>/img/user2.png"
+          source: "<?php echo $value['image']?>"
         });
        <?php  } ?>
      

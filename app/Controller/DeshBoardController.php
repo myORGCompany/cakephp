@@ -195,7 +195,13 @@ class DeshBoardController extends AppController {
                 $GLOBALS['SessionData'][] = $value['User'];
             }
         } else{
+            if($userData['payment'] == 1){
+                    $data['image'] = ABSOLUTE_URL.'/img/user1.png';
+                } else {
+                    $data['image'] = ABSOLUTE_URL.'/img/user2.png';
+                }
             $GLOBALS['SessionData'][0]['mobile'] = $userData['mobile'];
+            $GLOBALS['SessionData'][0]['image'] = $data['image'];
             $GLOBALS['SessionData'][0]['email'] = $data['email'];
             $GLOBALS['SessionData'][0]['sponcer'] = $data['email'];
             $this->getRecursiveIcon($userData['mobile']);
@@ -207,14 +213,17 @@ class DeshBoardController extends AppController {
     function getRecursiveIcon($mobile){
         set_time_limit(0);
         $users = $this->User->find('all', array(
-            'fields' => array("User.email",'User.sponcer','User.mobile'),'conditions' => array('User.sponcer' => $mobile)
+            'fields' => array("User.email",'User.sponcer','User.mobile','payment'),'conditions' => array('User.sponcer' => $mobile)
         ));
          //echo '<pre>'; print_r($users);die;
         if(!empty($users)){
             foreach ($users as $key => $value) {
-
+                if($value['User']['payment'] == 1){
+                    $value['User']['image'] = ABSOLUTE_URL.'/img/user1.png';
+                } else {
+                    $value['User']['image'] = ABSOLUTE_URL.'/img/user2.png';
+                }
                 $GLOBALS['SessionData'][] = $value['User'];
-                
                 $this->getRecursiveIcon($value['User']['mobile']); 
             }
         }

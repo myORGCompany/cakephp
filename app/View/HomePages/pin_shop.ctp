@@ -12,6 +12,7 @@
 				<td><strong>Mobile</strong></td>
 				<td><strong>Bank</strong></td>
 				<td><strong>Account. No.</strong></td>
+				<td><strong>Ifsc Code</strong></td>
 				<td><strong>Account Name</strong></td>
 			</tr>
 			<?php foreach ($pinShop as $key => $value) { ?>
@@ -21,6 +22,7 @@
 					<td><?php echo $value['PinShop']['mobile'];?></td>
 					<td><?php echo $value['PinShop']['bank_name'];?></td>
 					<td><?php echo $value['PinShop']['account_number'];?></td>
+					<td><?php echo $value['PinShop']['ifsc'];?></td>
 					<td><?php echo $value['PinShop']['account_name'];?></td>
 				</tr>
 			<?php } ?>

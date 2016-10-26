@@ -47,7 +47,7 @@
     margin-bottom: 3%;
   }
   #inner-headline {
-    background: #e7e7e7 url("<?php echo ABSOLUTE_URL;?>/img/border-bg.jpg") repeat-x scroll left top;
+    background: #e7e7e7 ;
     border-bottom: 1px solid #cbcbcb;
     color: #358a22;
     height: 80px;

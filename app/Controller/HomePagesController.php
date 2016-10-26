@@ -76,6 +76,7 @@ class HomePagesController extends AppController {
 				$data['UserId'] = $login_detail['User']['id'];
 				$data['email'] = $login_detail['User']['email'];
 				$data['password'] = $login_detail['User']['password'];
+				$data['mobile'] = $login_detail['User']['mobile'];
 				$this->Session->write('User',$data);
 				if(!empty($login_detail['User']['is_admin']) && $login_detail['User']['is_admin'] ==1) {
 					$this->redirect( array( 'controller' => 'desh_board', 'action' => 'adminLogin' ) );

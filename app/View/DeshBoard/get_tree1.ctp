@@ -1,5 +1,4 @@
-
-    <?php $userData = $this->Session->read('User'); ?>
+<?php $userData = $this->Session->read('User'); ?>
 
   <script src="<?php echo ABSOLUTE_URL;?>/js/go.js"></script>
   <link href="<?php echo ABSOLUTE_URL;?>/assets/css/goSamples.css" rel="stylesheet" type="text/css" />  <!-- you don't need to use this -->
@@ -45,13 +44,11 @@
 
       // Define a node template that is shared by both diagrams
       var myNodeTemplate =
-        $(go.Node, "Vertical",
+        $(go.Node, "Auto",
+          { background: "#DAE4E4" },
           $(go.Picture,
             { margin: 10, width: 50, height: 50, background: "#DAE4E4" },
-            new go.Binding("source")),
-           $(go.TextBlock, "Default Text",
-      { stroke: "black", font: "bold 14px sans-serif" },
-      new go.Binding("text", "key"))
+            new go.Binding("source"))
           
         );
       // var myNodeTemplate =
@@ -82,27 +79,27 @@
       setupDiagram();
 
       // Create a part in the background of the full diagram to highlight the selected node
-      // highlighter =
-      //   $(go.Part, "Auto",
-      //     {
-      //       layerName: "base",
-      //       selectable: false,
-      //       isInDocumentBounds: false,
-      //       locationSpot: go.Spot.Center
-      //     },
-      //     $(go.Shape, "Ellipse",
-      //       {
-      //         fill: $(go.Brush, "Radial", { 0.0: "#DAE4E4", 1.0: "#DAE4E4" }),
-      //         stroke: null,
-      //         desiredSize: new go.Size(400, 400)
-      //       })
-      //     );
-      // //myFullDiagram.add(highlighter);
+      highlighter =
+        $(go.Part, "Auto",
+          {
+            layerName: "base",
+            selectable: false,
+            isInDocumentBounds: false,
+            locationSpot: go.Spot.Center
+          },
+          $(go.Shape, "Ellipse",
+            {
+              fill: $(go.Brush, "Radial", { 0.0: "yellow", 1.0: "white" }),
+              stroke: null,
+              desiredSize: new go.Size(400, 400)
+            })
+          );
+      myFullDiagram.add(highlighter);
 
       // Start by focusing the diagrams on the node at the top of the tree.
       // Wait until the tree has been laid out before selecting the root node.
       myFullDiagram.addDiagramListener("InitialLayoutCompleted", function(e) {
-        var node0 = myFullDiagram.findPartForKey("<?php echo $use['0']['mobile'];?>");
+        var node0 = myFullDiagram.findPartForKey(0);
         if (node0 !== null) node0.isSelected = true;
         showLocalOnFullClick();
       });
@@ -124,7 +121,7 @@
         // make sure the selected node is in the viewport
         myFullDiagram.scrollToRect(node.actualBounds);
         // move the large yellow node behind the selected node to highlight it
-        //highlighter.location = node.location;
+        highlighter.location = node.location;
         // create a new model for the local Diagram
         var model = new go.TreeModel();
         // add the selected node and its children and grandchildren to the local diagram
@@ -154,14 +151,13 @@
       total = "<?php echo count($use);?>";  // default to 100 nodes
       //alert(total);
       var nodeDataArray = [];
-     <?php  foreach ($use as $key => $value) { ?>
+    <?php  foreach ($use as $key => $value) { ?>
         nodeDataArray.push({
-          key: "<?php echo $value['mobile'];?>",
+          key: "<?php echo $value['email'];?>",
           parent:"<?php echo $value['sponcer'];?>",
-          source: "<?php echo ABSOLUTE_URL;?>/img/user2.png"
+          source: "<?php echo ABSOLUTE_URL;?>/img/user1.png"
         });
        <?php  } ?>
-     
       myFullDiagram.model = new go.TreeModel(nodeDataArray);
     }
   </script>

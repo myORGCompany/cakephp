@@ -194,26 +194,27 @@ class DeshBoardController extends AppController {
                 $GLOBALS['SessionData'][] = $value['User'];
             }
         } else{
-             $GLOBALS['SessionData'][0]['email'] = $data['email'];
-             $GLOBALS['SessionData'][0]['sponcer'] = $data['email'];
-            $this->getRecursiveIcon($data['email']);
+            $GLOBALS['SessionData'][0]['mobile'] = $userData['mobile'];
+            $GLOBALS['SessionData'][0]['email'] = $data['email'];
+            $GLOBALS['SessionData'][0]['sponcer'] = $data['email'];
+            $this->getRecursiveIcon($userData['mobile']);
         }
-        //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
+       //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
         $this->set('use',$GLOBALS['SessionData']);
     }
     
-    function getRecursiveIcon($email){
+    function getRecursiveIcon($mobile){
         set_time_limit(0);
         $users = $this->User->find('all', array(
-            'fields' => array("User.email",'User.sponcer'),'conditions' => array('User.sponcer' => $email)
+            'fields' => array("User.email",'User.sponcer','User.mobile'),'conditions' => array('User.sponcer' => $mobile)
         ));
-
+         //echo '<pre>'; print_r($users);die;
         if(!empty($users)){
             foreach ($users as $key => $value) {
 
                 $GLOBALS['SessionData'][] = $value['User'];
                 
-                $this->getRecursiveIcon($value['User']['email']); 
+                $this->getRecursiveIcon($value['User']['mobile']); 
             }
         }
     }

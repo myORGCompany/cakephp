@@ -42,6 +42,7 @@
 <body>
   <?php 
 
+
 echo $this->element('top_navigation'); 
 echo $this->element('registration');
 //echo 'jwkqdjwqd'.$this->Session->read('pop'); die;

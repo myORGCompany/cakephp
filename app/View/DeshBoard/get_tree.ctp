@@ -167,7 +167,7 @@
   </script>
 </head>
 <body onload="init()">
-<div id="work">
+<div id="work" style="margin-bottom:-15px;">
   <div id="fullDiagram" style="height:200px;width:100%;border:1px solid black;margin:2px; background-color: #DAE4E4;"></div>
   <div id="localDiagram" style="height:400px;width:100%;border:0px solid black;margin:2px; background-color: #DAE4E4;"></div>  
 </div>

@@ -38,18 +38,23 @@
                                     <ul class="nav navbar-nav navbar-right" style=" ">
                                     <?php } ?>
                                     <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/deshBoard">Home</a></li>
-                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/desh_board/getTree">View Team</a></li>
+                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/profile">My Profile</a></li>
                                         <li class="dropdown ">
-                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Teams<span class="caret"></span></a>
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Teams<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
+                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/MyTeam">My Working-Zone</a></li> 
                                         <li><a   href="<?php echo ABSOLUTE_URL;?>/AllIndiaActives">All India Active-Zone</a>
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/MyTeam">My Team</a></li> 
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/AllIndiaSafeZone">All India Safe-Zone</a></li>
                                         </ul>
                                         </li>
-
-
-                                      <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
+                                      <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Our Company<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/about">About-us</a></li>
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/franchise">Pin franchise</a></li>
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
+                                         </ul></li>
+                                     
                                        <li class="dropdown ">
                                         <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Total Income<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
@@ -58,11 +63,9 @@
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/safe">Safe-Zone Income</a></li>
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/royality">Royality</a></li>
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/all">View all</a></li>
-
                                         </ul>
                                         </li>
-                                        <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/about">About-us</a></li>
-                                        <li><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/franchise">Pin franchise</a></li>
+                                        <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/withdraw">Withdraw Mony</a></li>
                                       <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
                                       <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
                                        

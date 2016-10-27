@@ -59,6 +59,11 @@ class DeshBoardController extends AppController {
 	function saveBankDetails() {
 		$this->autoRender = false;
 	    $this->layout = "";
+        $response = array(
+            'hasError' => true,
+            'message' => "Either email or password is incorrect!",
+            'redirect' => false
+        );
 	    $userData = $this->Session->read('User');
 		$data['user_id'] = $userData['UserId'];
 		if($this->data){
@@ -69,7 +74,9 @@ class DeshBoardController extends AppController {
 			$data['is_active'] = 1;
 			$this->UserBank->updateAll(array("is_active"=>0),array("user_id"=>$userData['UserId']));
 			$this->UserBank->save($data);
-			$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard?bankDetails=1' ) );
+            $response = array('hasError' => false, 'message' => 'Thank You Your Bank Details Updated Successfully','redirect' => ABSOLUTE_URL.'/home_pages/deshBoard'); 
+            echo json_encode($response);
+            exit;
 		}
 	}
 	function adminLogin(){
@@ -299,7 +306,7 @@ class DeshBoardController extends AppController {
             ));
         $parant =0;
         $treeData[0]['key'] = 0;
-        $treeData[0]['mobile'] = $activeUsers[0]['ActiveZone']['created'];
+        $treeData[0]['mobile'] = $activeUsers[0]['User']['mobile'];
         $treeData[0]['parant'] = "";
         $treeData[0]['image'] = ABSOLUTE_URL.'/img/user1.png';
         foreach ($activeUsers as $key => $value) {
@@ -309,7 +316,7 @@ class DeshBoardController extends AppController {
             }
             if (!empty($activeUsers[$i])) {
                 $treeData[$i]['key'] = $i;
-                $treeData[$i]['mobile'] = $activeUsers[$i]['ActiveZone']['created'];
+                $treeData[$i]['mobile'] = $activeUsers[$i]['User']['mobile'];
                 $treeData[$i]['parant'] = $parant;
                 $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user1.png';
             }

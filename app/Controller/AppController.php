@@ -60,6 +60,10 @@ class AppController extends Controller {
            $Login =1;
            $this->Session->write('Login' , 1);
            $user = $this->Session->read('User');
+           if(empty($user['r1']) || $user['r1'] != 1){
+                $user_id =$user['user_id'];
+                $this->redirect( array( 'controller' => 'home_pages', 'action' => 'r1' ) );
+           }
            if($user['status'] == 1){
                 $user_id =$user['UserId'];
                 return $user_id;

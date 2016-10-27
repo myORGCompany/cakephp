@@ -102,7 +102,7 @@
       // Start by focusing the diagrams on the node at the top of the tree.
       // Wait until the tree has been laid out before selecting the root node.
       myFullDiagram.addDiagramListener("InitialLayoutCompleted", function(e) {
-        var node0 = myFullDiagram.findPartForKey("<?php echo $use['0']['mobile'];?>");
+        var node0 = myFullDiagram.findPartForKey(0);
         if (node0 !== null) node0.isSelected = true;
         showLocalOnFullClick();
       });
@@ -168,7 +168,7 @@
   </script>
 </head>
 <body onload="init()">
-<div id="work">
+<div id="work" style="margin-bottom:-15px;">
   <div id="fullDiagram" style="height:200px;width:100%;border:1px solid black;margin:2px; background-color: #DAE4E4;"></div>
   <div id="localDiagram" style="height:400px;width:100%;border:0px solid black;margin:2px; background-color: #DAE4E4;"></div>  
 </div>

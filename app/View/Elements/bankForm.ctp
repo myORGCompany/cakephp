@@ -15,6 +15,7 @@
                                   <input type="text" class="form-control" id="bankName" name="bankName" value="" required="" title="Please enter your password">
                                   <span class="help-block"></span>
                               </div>
+                              <div class="form-group control-group">
                                   <label for="accountNumber" class="control-label" >Account Number</label>
                                   <input type="text" class="form-control" id="accountNumber" name="accountNumber" title="Please enter you account number" required="">
                                   <span class="help-block"></span>
@@ -35,17 +36,18 @@
                       <?php if(!empty($HelpData['bank'])) { ?>
                       <strong>Existing bank</strong> 
                       <div class="well">
-                                  <div class="col-xs-3  text-center"><label class="control-label">Bank</label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label">Account No.</label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label">Branch</label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label">Ifsc</label></div>
-                                <div class="clearfix"></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['bank_name'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['account_number'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['branch'] ?></label></div>
-                                  <div class="col-xs-3  text-center"><label class="control-label"><?php echo $HelpData['bank']['UserBank']['ifsc_code'] ?></label></div>
-                                  <div class="clearfix"></div>
+                          <table class="table table-responsive">
+                                  <tr><td><label class="control-label">Bank</label></td>
+                                  <td><label class="control-label">Account No.</label></td>
+                                  <td><label class="control-label">Branch</label></td>
+                                  <td><label class="control-label">Ifsc</label></td></tr>
+                                <div class="clearfix"></div><div class="clearfix"></div>
+                                  <tr class="text-success"> <td><label class="control-label"><?php echo $HelpData['bank']['UserBank']['bank_name'] ?></label></td>
+                                  <td><label class="control-label"><?php echo $HelpData['bank']['UserBank']['account_number'] ?></label></td>
+                                  <td><label class="control-label"><?php echo $HelpData['bank']['UserBank']['branch'] ?></label></td>
+                                  <td><label class="control-label"><?php echo $HelpData['bank']['UserBank']['ifsc_code'] ?></label></td></tr>
                              <?php } ?>
+                            </table>
                       </div>
                   </div>
               </div>
@@ -53,19 +55,83 @@
       </div>
   </div>
   <script type="text/javascript">
-      function bankDetailSubmit() {
-        $.ajax({
-            url:'<?php echo ABSOLUTE_URL;?>/desh_board/saveBankDetails/',
-            method:'post',
-            data: {bankName:$("#bankName").val(),accountNumber:$("#accountNumber").val(),ifsc: $("#ifsc").val(),branch:$("#branch").val()},
-            success: function (data) {
-                alert("Your request submitted successfully");
-            },
-            error: function (){
-                alert('Something went wrong..');
+  $(document).ready(function () {       
+        $("#bnkForm").bootstrapValidator({
+            live: false,
+            trigger: 'blur',
+            fields: {
+                "bankName": {
+                    selector: "#bankName",
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: "Please enter your bank name"
+                        },
+                        regexp: {
+                            regexp: /^[a-z\s]+$/i,
+                            message: 'Please enter your bank name in valid characters'
+                        },
+                        stringLength: {
+                            enabled: true,
+                            min: 3,
+                            max: 70,
+                            message: 'Bank name too short'
+                        }
+                    }
+                },
+                "ifsc": {
+                    message: "Please Enter IFSC code",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter IFSC code'
+                        }
+                    }
+                },
+                "branch": {
+                    message: "Please Enter branch name",
+                   
+                    validators: {
+                        notEmpty: {
+                            enabled: true,
+                            message: 'Please enter branch name'
+                        }
+                    }
+                },
+                "accountNumber": {
+                    message: "Enter your account number",
+                    validators: {
+                        notEmpty: {
+                            min: 12,
+                            max: 20,
+                            enabled: true,
+                            message: 'Enter account number'
+                        }
+                    }
+                }
             }
-        });
-    }
+        }).on('success.form.bv', function(e) {
+                    e.preventDefault();
+                   $.ajax({
+                        url:'<?php echo ABSOLUTE_URL;?>/desh_board/saveBankDetails/',
+                        method:'post',
+                        data: {bankName:$("#bankName").val(),accountNumber:$("#accountNumber").val(),ifsc: $("#ifsc").val(),branch:$("#branch").val()},
+                        success: function (res) {
+                           if (res.hasError === true) {
+                                $("#bnkForm").html(res.messages).show().removeClass('hide');
+                            } else {
+                                $("#bnkForm").addClass('hidden');
+                                alert('Thank You Your Bank Details Updated Successfully');
+                                location.reload(); 
+                            }
+                        },
+                        error: function (){
+                            alert('Something went wrong..');
+                        }
+                    });
+                });
+    });
     
   </script>
   <style type="text/css">

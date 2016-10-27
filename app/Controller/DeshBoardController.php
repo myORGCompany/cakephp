@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone','WithdrawalRequests','PinWallet');
 
 /**
  * Displays a view
@@ -310,9 +310,11 @@ class DeshBoardController extends AppController {
         $this->set('zone',$tp);
     }
     function incomeWallet(){
-        Configure::write('debug', 02);
+        //Configure::write('debug', 02);
         $userData = $this->Session->read('User');
         $user_id = $this->_checkLogin();
+        $is_paid = array('0','1');
+        $withdrawZoneWise = $this->WithdrawalRequests->getWithdrawalRequiest($user_id,$is_paid);
         $data = $this->User->getTeam($this->Session->read('User.mobile'),1);
         $workingZone = Set::classicExtract($GLOBALS['Wallet'], '{n}.income');
         $actCount = 0; 
@@ -334,18 +336,41 @@ class DeshBoardController extends AppController {
              }
         }
         $data[0]['zone'] = 'Working';
-        $data[0]['income'] = array_sum($workingZone);
+        $data[0]['income'] = array_sum($workingZone) - $withdrawZoneWise['working'];
         $data[1]['zone'] = 'Active';
-        $data[1]['income'] = $actCount*10;
+        $data[1]['income'] = ($actCount*10) - $withdrawZoneWise['active'];
         $data[2]['zone'] = 'Safe';
-        $data[2]['income'] = $safeCount*5;
+        $data[2]['income'] = ($safeCount*5) - $withdrawZoneWise['safe'];
         $this->set('workingZone',$workingZone);
         $this->set('walletData',$data);
     }
     function widrowMoney(){
         $user_id = $this->_checkLogin();
-        //print_r($this->data);die;
-        //$this->setFlash("Thank you your requiest submitted successfully");
+        $data['user_id'] = $user_id;
+          $data['active'] = $this->data['Active'];
+          $data['working'] = $this->data['Working'];
+          $data['safe'] = $this->data['Safe'];
+          $data['pin'] = '';
+          $data['other'] = '';
+          $data['is_paid'] = 0;
+          $data['total'] = $this->data['Gtotal'];
+          if ($data['total'] == ($data['working']+$data['active']+$data['safe'])) {
+              $this->WithdrawalRequests->save($data);
+          }
+        $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
         $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+    }
+    function txtHistory(){
+        $user_id = $this->_checkLogin();
+        $withdrawZoneWise = $this->WithdrawalRequests->find('all', array('conditions' => array('user_id' => $user_id)
+        ));
+        //echo '<pre>';print_r($withdrawZoneWise);die;
+        $this->set('txtRequest',$withdrawZoneWise);
+    }
+    function pinParachase(){
+        $user_id = $this->_checkLogin();
+        $pin = $this->PinWallet->find('all', array('conditions' => array('user_id' => $user_id)
+        ));
+        $this->set('availbalePin',$pin);
     }
 }

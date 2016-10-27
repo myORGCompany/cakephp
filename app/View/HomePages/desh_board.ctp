@@ -2,7 +2,9 @@
 <body>	
 <section id="inner-headline">
   <h2 class="pageTitle text-center">Welcome <?php echo $this->Session->read('User.name');?></h2>
+<?php echo $this->Session->flash(); ?>
 </section>
+
 <div class="container">
 	<div class="text-center row">
   	<img style="margin-top:-27px;" class="img-responsive m-l-18" src="<?php echo ABSOLUTE_URL;?>/img/Network-marketing.jpg">

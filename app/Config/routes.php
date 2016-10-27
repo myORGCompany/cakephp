@@ -37,6 +37,9 @@
 	Router::connect('/MyTeam', array('controller' => 'desh_board', 'action' => 'getTree'));
 	Router::connect('/AllIndiaSafeZone', array('controller' => 'desh_board', 'action' => 'getTreeSafeZon'));
 	Router::connect('/profile', array('controller' => 'home_pages', 'action' => 'r1'));
+	Router::connect('/withdraw', array('controller' => 'desh_board', 'action' => 'incomeWallet'));
+	Router::connect('/History', array('controller' => 'desh_board', 'action' => 'txtHistory'));
+	Router::connect('/Pin', array('controller' => 'desh_board', 'action' => 'pinParachase'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

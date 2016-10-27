@@ -16,15 +16,16 @@
 					<tr class="text-center">
 						<td><strong>#</strong></td>
 						<td><strong><?php echo $value['zone'];?></strong></td>
-						<td><input type="text" class="form-control" readonly value="<?php echo $value['income'];?>" id="td<?php echo $key;?>" name="<?php echo $key;?>"></strong></td>
-						<td><input type="text" onchange="return validateForm(this.id);" class="form-control" id="<?php echo $key;?>" name="<?php echo $key;?>"></td>
+						<td><input type="text" class="form-control hidden" readonly value="<?php echo $value['income'];?>" id="td<?php echo $key;?>"><span><strong><?php echo $value['income'];?></strong></span></td>
+						<td><input type="text" onchange="return validateForm(this.id);" class="form-control" id="<?php echo $key;?>" name="<?php echo $value['zone'];?>"></td>
 					</tr>
 				<?php } ?>
+				<div class="clearfix"></div><br />
 				<tr class="text-center">
 						<td><strong>Total Amount</strong></td>
 						<td><strong></strong></td>
 						<td><strong></strong></td>
-						<td><input type="text" id="tot" class="form-control" readonly id="<?php echo $key;?>" name="<?php echo $key;?>"></td>
+						<td><input type="text" id="tot" class="form-control" readonly id="<?php echo $key;?>" name="Gtotal"></td>
 					</tr>
 				</table>
 				<div class="text-center">
@@ -42,9 +43,13 @@
 	function validateForm(id){
 		var val1 = $("#td"+id).attr('value');
 		var val2 = $("#"+id).val();
-		if(val2 > val1){
+		if(parseInt(val2) > parseInt(val1)){
 			alert("This amount not suficiant in your wallet");
 			$("#"+id).val(null);
+			$("#tot").val(null);
+			$('#widrowForm')[0].reset();
+			total = 0;
+
 			return false;
 		} else {
 			total = parseInt(total) + parseInt(val2);

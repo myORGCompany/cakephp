@@ -53,6 +53,7 @@
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/about">About-us</a></li>
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/franchise">Pin franchise</a></li>
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
+                                             <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/contactUs">Contact Us</a></li>
                                          </ul></li>
                                      
                                        <li class="dropdown ">
@@ -65,9 +66,15 @@
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/all">View all</a></li>
                                         </ul>
                                         </li>
-                                        <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/withdraw">Withdraw Mony</a></li>
-                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
-                                      <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li></ul>
+                                        <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wallet<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/withdraw">Income Wallet</a></li>
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/withdraw">Pin Wallet</a></li>
+                                        </ul></li>
+                                        <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li>
+                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li></ul>
+                                      
                                        
 
                                <?php } ?>

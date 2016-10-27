@@ -111,3 +111,4 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 Configure::write('default_css_jobseeker', array('bootstrap', 'hh-theme'));
+Configure::write('incomeGlobleArray', array(1 => '250',2 => '175',3 => '150',4 => '50',5 => '50',6 => '50',7 => '100',8 => '300',9 => '400'));

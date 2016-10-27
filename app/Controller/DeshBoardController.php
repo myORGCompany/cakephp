@@ -254,37 +254,7 @@ class DeshBoardController extends AppController {
         set_time_limit(0);
         $userData = $this->Session->read('User');
         $data['email'] = $userData['email'];
-        
-            $users = $this->User->find('all', array(
-            'fields' => array("User.email",'User.sponcer','mobile','payment'),'conditions' => array('User.id >' => $userData['UserId'])
-            ));
-        $parant =0;
-        if($userData['payment'] == 1){
-            $treeData[0]['image'] = ABSOLUTE_URL.'/img/user1.png';
-        } else {
-            $treeData[0]['image'] = ABSOLUTE_URL.'/img/user2.png';
-        }
-        $treeData[0]['key'] = 0;
-        $treeData[0]['mobile'] = $users[0]['User']['mobile'];
-        $treeData[0]['parant'] = "";
-            foreach ($users as $key => $value) {
-                $i = $key+1;
-                if($key %2 ==0 && $key >= 2){
-                    $parant++;
-                }
-                if (!empty($users[$i])) {
-                    if($users[$i]['payment'] == 1){
-                        $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user1.png';
-                    } else {
-                        $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user2.png';
-                    }
-                    $treeData[$i]['key'] = $i;
-                    $treeData[$i]['mobile'] = $users[$i]['User']['mobile'];
-                    $treeData[$i]['parant'] = $parant;
-                }
-            }
-        
-       //echo '<pre>'; print_r($GLOBALS['SessionData']);die;
+        $treeData = $this->User->getSafeZoneTree($userData);
         $this->set('use',$treeData);
         $this->render('get_tree_active');
     }
@@ -293,34 +263,7 @@ class DeshBoardController extends AppController {
         set_time_limit(0);
         $userData = $this->Session->read('User');
         $data['email'] = $userData['email'];
-        $users = $this->User->find('first', array(
-            'fields' => array("email",'sponcer','created'),'conditions' => array('id' => $userData['UserId'])
-            ));
-        $activeUsers = $this->ActiveZone->find('all', array(
-            'fields' => array("User.mobile",'ActiveZone.id','ActiveZone.created'),
-            'conditions' => array('ActiveZone.created >=' => $users['User']['created']),
-            'joins' => array(
-                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('ActiveZone.user_id = User.id'))
-                ),
-            'order' => 'ActiveZone.created'
-            ));
-        $parant =0;
-        $treeData[0]['key'] = 0;
-        $treeData[0]['mobile'] = $activeUsers[0]['User']['mobile'];
-        $treeData[0]['parant'] = "";
-        $treeData[0]['image'] = ABSOLUTE_URL.'/img/user1.png';
-        foreach ($activeUsers as $key => $value) {
-            $i = $key+1;
-            if($key %2 ==0 && $key >= 2){
-                $parant++;
-            }
-            if (!empty($activeUsers[$i])) {
-                $treeData[$i]['key'] = $i;
-                $treeData[$i]['mobile'] = $activeUsers[$i]['User']['mobile'];
-                $treeData[$i]['parant'] = $parant;
-                $treeData[$i]['image'] = ABSOLUTE_URL.'/img/user1.png';
-            }
-        }
+        $treeData = $this->ActiveZone->getActiveZoneTree($user_id);
         $this->set('use',$treeData);
     }
     function getRecursiveIcon($mobile){
@@ -349,6 +292,10 @@ class DeshBoardController extends AppController {
                 break;
             case "working":
             $tp = 'Working-Zone';
+            $this->User->getTeam($this->Session->read('User.mobile'),1);
+            $workingZone = Set::classicExtract($GLOBALS['Wallet'], '{n}.income');
+            $this->set('workingZone',$workingZone);
+            $this->set('walletData',$GLOBALS['Wallet']);
                 break;
             case "safe":
             $tp = 'Safe-Zone';
@@ -359,6 +306,46 @@ class DeshBoardController extends AppController {
             default:
                 $tp = 'All-Zone';
         }
+
         $this->set('zone',$tp);
+    }
+    function incomeWallet(){
+        Configure::write('debug', 02);
+        $userData = $this->Session->read('User');
+        $user_id = $this->_checkLogin();
+        $data = $this->User->getTeam($this->Session->read('User.mobile'),1);
+        $workingZone = Set::classicExtract($GLOBALS['Wallet'], '{n}.income');
+        $actCount = 0; 
+        $safeCount = 0;
+        $active = $this->ActiveZone->getActiveZoneTree($user_id);
+        $safe = $this->User->getSafeZoneTree($userData);
+        $safeZonePairs = Set::classicExtract($safe, '{n}.parant');
+        $vals1 = array_count_values($safeZonePairs);
+        $activeZonePairs = Set::classicExtract($active, '{n}.parant');
+        $vals2 = array_count_values($activeZonePairs);
+        foreach ($vals2 as $key => $value) {
+             if ($key != '' && $value >= 2) {
+                 $actCount++;
+             }
+        }
+        foreach ($vals1 as $key => $value) {
+             if ($key != '' && $value >= 2) {
+                 $safeCount++;
+             }
+        }
+        $data[0]['zone'] = 'Working';
+        $data[0]['income'] = array_sum($workingZone);
+        $data[1]['zone'] = 'Active';
+        $data[1]['income'] = $actCount*10;
+        $data[2]['zone'] = 'Safe';
+        $data[2]['income'] = $safeCount*5;
+        $this->set('workingZone',$workingZone);
+        $this->set('walletData',$data);
+    }
+    function widrowMoney(){
+        $user_id = $this->_checkLogin();
+        //print_r($this->data);die;
+        //$this->setFlash("Thank you your requiest submitted successfully");
+        $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
     }
 }

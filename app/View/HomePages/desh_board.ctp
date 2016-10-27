@@ -1,7 +1,7 @@
 
 <body>	
 <section id="inner-headline">
-  <h2 class="pageTitle text-center">Wellcome <?php echo $this->Session->read('User.name');?></h2>
+  <h2 class="pageTitle text-center">Welcome <?php echo $this->Session->read('User.name');?></h2>
 </section>
 <div class="container">
 	<div class="text-center row">

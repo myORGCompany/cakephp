@@ -1,7 +1,12 @@
 <div class="container "> 
 <div class="row well ">
 	<h3 class="text-info"> Hi <?php echo $this->Session->read('User.name');?></h3>
-	<p>Hare your pin history</p>
+	<div class="clearfix"></div>
+	<div class="row">
+		<h4 class="pull-left margin-left-10">Hare your pin history</h4>
+		<a href="#" class="btn btn-default pull-right">Generate New Pin From Wallet</a>
+		<a href="#" class="btn btn-default pull-right">Parchage New Pin From Store</a>
+	</div>
 </div>
 	<div class="row well ">
 	<h4 class="text-info">Your Pin</h4>
@@ -35,5 +40,5 @@
 				</tr>
 			<?php } ?>
 		</table>
-	</div>
+		</div>
 </div>

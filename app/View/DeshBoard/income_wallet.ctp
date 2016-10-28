@@ -17,7 +17,7 @@
 						<td><strong>#</strong></td>
 						<td><strong><?php echo $value['zone'];?></strong></td>
 						<td><input type="text" class="form-control hidden" readonly value="<?php echo $value['income'];?>" id="td<?php echo $key;?>"><span><strong><?php echo $value['income'];?></strong></span></td>
-						<td><input type="text" onchange="return validateForm(this.id);" class="form-control" id="<?php echo $key;?>" name="<?php echo $value['zone'];?>"></td>
+						<td><input type="text" onchange="return validateForm(this.id);" class="form-control" id="<?php echo $value['zone'];?>" name="<?php echo $value['zone'];?>"></td>
 					</tr>
 				<?php } ?>
 				<div class="clearfix"></div><br />
@@ -37,12 +37,11 @@
 	</div>
 </body>
 <script type="text/javascript">
-	$(document).ready(function () {
-		total = 0;
-	});
+	
 	function validateForm(id){
 		var val1 = $("#td"+id).attr('value');
 		var val2 = $("#"+id).val();
+		var total =0;
 		if(parseInt(val2) > parseInt(val1)){
 			alert("This amount not suficiant in your wallet");
 			$("#"+id).val(null);
@@ -52,7 +51,15 @@
 
 			return false;
 		} else {
-			total = parseInt(total) + parseInt(val2);
+			if ($("#Active").val()) {
+				total = parseInt(total) +parseInt($("#Active").val());
+			}
+			if ($("#Safe").val()) {
+				total = parseInt(total) +parseInt($("#Safe").val());
+			}
+			if ($("#Working").val()) {
+				total = parseInt(total) +parseInt($("#Working").val());
+			}
 			$("#tot").val(total);
 		}
 	}

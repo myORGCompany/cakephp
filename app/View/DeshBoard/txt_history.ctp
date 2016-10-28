@@ -22,7 +22,7 @@
 					<td><?php echo $value['WithdrawalRequests']['working'];?></td>
 					<td><?php echo $value['WithdrawalRequests']['active'];?></td>
 					<td><?php echo $value['WithdrawalRequests']['safe'];?></td>
-					<td><?php echo $value['WithdrawalRequests']['pin'];?></td>
+					<td><?php echo $value['WithdrawalRequests']['pin']*PIN_PRICE;?></td>
 					<td><?php echo $value['WithdrawalRequests']['other'];?></td>
 					<td><?php echo $value['WithdrawalRequests']['total'];?></td>
 					<?php if ($value['WithdrawalRequests']['is_paid'] ==1 ) { 

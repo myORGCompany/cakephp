@@ -27,7 +27,6 @@ class HomePagesController extends AppController {
  */
 	function index() {
 		$this->layout="default";
-
 	}
 
 	function deshBoard() {
@@ -114,9 +113,18 @@ class HomePagesController extends AppController {
 	function saveLead(){
 		$this->Session->write('pop',1);
 		$data['name'] = $this->data['fname'];
-		$data['email'] = $this->data['email_id'];
-		$data['mobile'] = $this->data['mobile'];
-		if( empty($this->User->checkMemberShipByMobile($data['mobile'])) ) {
+		$data['mobile'] = $this->data['email_id'];
+		$data['source'] = 'Home-PopUp';
+		$user_id = $this->checkRegisterdGetId($data['email'],2);
+		if(!empty($user_id)){
+			$data['user_id'] = $user_id;
+			$data['is_registered'] = 1;
+		} else{
+			$data['user_id'] = 0;
+			$data['is_registered'] = 0;
+		}
+		//echo '<pre>';print_r($this->PopLead->checkPopEntryByMobile($data['mobile']));die;
+		if( empty($this->PopLead->checkPopEntryByMobile($data['mobile'])) ) {
 			if($this->PopLead->save($data)){
 			echo 1;
 			exit;
@@ -170,5 +178,33 @@ class HomePagesController extends AppController {
 				$this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
 			}
 		}
+	}
+	function submitLeads(){
+		$this->layout = "default";
+		$this->autoRender = false;
+		if(!empty($this->request->data)) {
+			$leads['name'] = $this->request->data['Name'];
+			$leads['email'] = $this->request->data['email'];
+			$leads['mobile'] = $this->request->data['mobile'];
+			$leads['comments'] = $this->request->data['comments'];
+			$leads['source'] = 'Contact-US';
+			$user_id = $this->checkRegisterdGetId($leads['email'],1);
+			if(!empty($user_id)){
+				$leads['user_id'] = $user_id;
+				$leads['is_registered'] = 1;
+			} else{
+				$leads['user_id'] = 0;
+				$leads['is_registered'] = 0;
+			}
+			if($this->PopLead->save($leads)){
+				$message['message'] = "Thanks for contacting us we will shortly connect you";
+				$message['class'] = 'text-success';
+			} else{
+				$message['message'] = "Smothing went wrong please try again";
+				$message['class'] = 'text-danger';
+			}
+		}
+		echo json_encode($message);
+		exit;
 	}
 }

@@ -76,4 +76,62 @@ class AppController extends Controller {
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=6' ) );
         }
     }
+    function checkRegisterdGetId($data = null,$type = null){
+        $this->autoRender = false;
+        $this->layout = null;
+        $isMember = false;
+        $User = $this->_import('User');
+        if ($type == 1) {
+           $source = 'User.email';
+        } else if ($type == 2) {
+           $source = 'User.mobile';
+        } 
+        $loginData = $User->find('first', array(
+            'fields' => array("User.id"),
+            'conditions' => array($source => $data)
+        ));
+        if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
+            $isMember = (int) $loginData['User']['id'];
+        }
+        return $isMember;
+    }
+    function getAllIncomes($user_id){
+        if (empty($user_id)) {
+            $user_id = $this->_checkLogin();
+        }
+        $User = $this->_import('User');
+        $WithdrawalRequests = $this->_import('WithdrawalRequests');
+        $ActiveZone = $this->_import('ActiveZone');
+        $userData = $User->find('first', array('conditions' => array('User.id' => $user_id)));
+        $userData['User']['UserId'] = $userData['User']['id'];
+        $is_paid = array('0','1');
+        $withdrawZoneWise = $WithdrawalRequests->getWithdrawalRequiest($user_id,$is_paid);
+        $data = $User->getTeam($userData['User']['mobile'],1);
+        $workingZone = Set::classicExtract($GLOBALS['Wallet'], '{n}.income');
+        $actCount = 0; 
+        $safeCount = 0;
+        $active = $ActiveZone->getActiveZoneTree($user_id);
+        $safe = $User->getSafeZoneTree($userData['User']);
+        $safeZonePairs = Set::classicExtract($safe, '{n}.parant');
+        $vals1 = array_count_values($safeZonePairs);
+        $activeZonePairs = Set::classicExtract($active, '{n}.parant');
+        $vals2 = array_count_values($activeZonePairs);
+        foreach ($vals2 as $key => $value) {
+             if ($key != '' && $value >= 2) {
+                 $actCount++;
+             }
+        }
+        foreach ($vals1 as $key => $value) {
+             if ($key != '' && $value >= 2) {
+                 $safeCount++;
+             }
+        }
+        $data[0]['zone'] = 'Working';
+        $data[0]['income'] = array_sum($workingZone) - $withdrawZoneWise['working'];
+        $data[1]['zone'] = 'Active';
+        $data[1]['income'] = ($actCount*10) - $withdrawZoneWise['active'];
+        $data[2]['zone'] = 'Safe';
+        $data[2]['income'] = ($safeCount*5) - $withdrawZoneWise['safe'];
+        return $data;
+    }
 }

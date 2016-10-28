@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone','WithdrawalRequests','PinWallet');
+	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone','WithdrawalRequests','PinWallet','PinShop');
 
 /**
  * Displays a view
@@ -310,37 +310,8 @@ class DeshBoardController extends AppController {
         $this->set('zone',$tp);
     }
     function incomeWallet(){
-        //Configure::write('debug', 02);
-        $userData = $this->Session->read('User');
         $user_id = $this->_checkLogin();
-        $is_paid = array('0','1');
-        $withdrawZoneWise = $this->WithdrawalRequests->getWithdrawalRequiest($user_id,$is_paid);
-        $data = $this->User->getTeam($this->Session->read('User.mobile'),1);
-        $workingZone = Set::classicExtract($GLOBALS['Wallet'], '{n}.income');
-        $actCount = 0; 
-        $safeCount = 0;
-        $active = $this->ActiveZone->getActiveZoneTree($user_id);
-        $safe = $this->User->getSafeZoneTree($userData);
-        $safeZonePairs = Set::classicExtract($safe, '{n}.parant');
-        $vals1 = array_count_values($safeZonePairs);
-        $activeZonePairs = Set::classicExtract($active, '{n}.parant');
-        $vals2 = array_count_values($activeZonePairs);
-        foreach ($vals2 as $key => $value) {
-             if ($key != '' && $value >= 2) {
-                 $actCount++;
-             }
-        }
-        foreach ($vals1 as $key => $value) {
-             if ($key != '' && $value >= 2) {
-                 $safeCount++;
-             }
-        }
-        $data[0]['zone'] = 'Working';
-        $data[0]['income'] = array_sum($workingZone) - $withdrawZoneWise['working'];
-        $data[1]['zone'] = 'Active';
-        $data[1]['income'] = ($actCount*10) - $withdrawZoneWise['active'];
-        $data[2]['zone'] = 'Safe';
-        $data[2]['income'] = ($safeCount*5) - $withdrawZoneWise['safe'];
+        $data = $this->getAllIncomes($user_id);
         $this->set('workingZone',$workingZone);
         $this->set('walletData',$data);
     }
@@ -371,6 +342,63 @@ class DeshBoardController extends AppController {
         $user_id = $this->_checkLogin();
         $pin = $this->PinWallet->find('all', array('conditions' => array('user_id' => $user_id)
         ));
+        $data = $this->getAllIncomes($user_id);
+        $PinShop = $this->PinShop->find('all', array( 'conditions' => array('status' => 1)));
+        $this->set('pinShop' ,$PinShop );
         $this->set('availbalePin',$pin);
+        $this->set('availbaleIncome',$data);
+        if ($this->data) {
+           // echo '<pre>'; print_r($this->data);die;
+            $data['active'] = $this->data['Active'];
+            $data['user_id'] = $user_id;
+            $data['working'] = $this->data['Working'];
+            $data['safe'] = $this->data['Safe'];
+            $data['pin'] = $this->data['quantity'];
+            $data['other'] = '';
+            $data['is_paid'] = 1;
+            $data['total'] = $this->data['tot'];
+            $pinW['user_id'] = $user_id;
+            $pinW['status'] = 1;
+            $pinW['created_by'] = 'user';
+            for ($i=0; $i <$data['pin'] ; $i++) { 
+                $pinW['cypher_code'] = $i."+".md5(date("YmdHis").$user_id.$i.'+');
+                $this->PinWallet->create();
+                $this->PinWallet->save($pinW);
+            }
+            if ($data['total'] == ($data['working']+$data['active']+$data['safe'])) {
+                $this->WithdrawalRequests->save($data);
+            }
+            $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        }
     }
+    function pinRequestFromShop(){
+        $this->autoRender = false;
+        $this->layout = "";
+        $user_id = $this->_checkLogin();
+        if ($this->data) {
+            $data['user_id'] = $user_id;
+            $data['pin'] = $this->data['shopPinQuantity'];
+            $data['is_paid'] = 0;
+            $data['total'] = $this->data['total'];
+            $pinW['user_id'] = $user_id;
+            $pinW['status'] = 3;
+            $pinW['created_by'] = 'shoper';
+            $pinW['pin_franchise_id'] = $this->data['shopId'];
+            for($i=0; $i <$data['pin'] ; $i++) { 
+                $pinW['cypher_code'] = $i."+".md5(date("YmdHis").$user_id.$i.'+');
+                $this->PinWallet->create();
+                $this->PinWallet->save($pinW);
+            }
+            if ($data['total'] == ($data['working']+$data['active']+$data['safe'])) {
+                $this->WithdrawalRequests->save($data);
+            }
+            $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        } else {
+            $this->Session->setFlash('<div class="row text-center well"><h3 class="text-danger">Something went wrong please try again</h3></div>');
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        }
+    }
+    
 }

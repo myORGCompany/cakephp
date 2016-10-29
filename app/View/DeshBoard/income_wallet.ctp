@@ -16,7 +16,7 @@
 					<tr class="text-center">
 						<td><strong>#</strong></td>
 						<td><strong><?php echo $value['zone'];?></strong></td>
-						<td><input type="text" class="form-control hidden" readonly value="<?php echo $value['income'];?>" id="td<?php echo $key;?>"><span><strong><?php echo $value['income'];?></strong></span></td>
+						<td><input type="text" class="form-control hidden" readonly value="<?php echo $value['income'];?>" id="td<?php echo $value['zone'];?>"><span><strong><?php echo $value['income'];?></strong></span></td>
 						<td><input type="text" onchange="return validateForm(this.id);" class="form-control" id="<?php echo $value['zone'];?>" name="<?php echo $value['zone'];?>"></td>
 					</tr>
 				<?php } ?>

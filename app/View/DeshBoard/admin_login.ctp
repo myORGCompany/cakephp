@@ -1,12 +1,12 @@
-
+ 
 <body>	
 <section id="inner-headline">
 <div class="container">
-	<h2 class="pageTitle text-center">Wellcome Admin</h2>
+	<h2 class="pageTitle text-center">Wellcome <?php echo $this->Session->read('User.name');?></h2>
 	</div>
 	</section>
 <div class="container">
-
+<?php if (!empty($HelpRecords)) { ?>
 <strong><h4>Give Help Requests</h4></strong> 
 <div class="panel panel-default">
   <div class="panel-heading col-xs-12">
@@ -28,9 +28,32 @@
             if($value['User']['email'] != $value2['User']['email']) {
             echo '<option>'.$value2['User']['name'].' | '.$value2['User']['email'].'</option>'; } } ?></Select></div>
           <div class="clearfix"></div>
-      <?php } ?>
   </div>
-</div>
+  <?php } }?>
+  <?php if (!empty($leads)) { ?>
+  <strong><h4>Visitors list</h4></strong> 
+  <div class="row">
+    <table class="table table-responsive">
+      <tr class="text-center"><td>Select</td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Mobile</td>
+      <td>Date</td>
+      <td>Source</td>
+      <td>Comments</td>
+      </tr>
+     <?php foreach ($leads as $key => $value) { ?>
+        <div class="clearfix"></div>
+        <tr class="text-center"><td>Select</td>
+            <td><?php echo $value['PopLead']['name'];?></td>
+            <td><?php echo $value['PopLead']['email'];?></td>
+            <td><?php echo $value['PopLead']['mobile'];?></td>
+            <td><?php echo $value['PopLead']['created'];?></td>
+            <td><?php echo $value['PopLead']['source'];?></td>
+            <td><?php echo $value['PopLead']['comments'];?></td>
+        </tr>
+    <?php } }?>
+  </div>
   
        
 </div>

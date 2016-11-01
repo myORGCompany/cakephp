@@ -8,39 +8,57 @@
 	</div>
 </div>
 	<div class="row well ">
-	<h4 class="text-info">Your Pin</h4>
+	<form action="<?php echo ABSOLUTE_URL;?>/desh_board/pinTransfer" method="post">
+	<h4 class="text-info pull-left">Your Pin</h4>
+	<button type="submit" class="btn pull-right margin-right-20" onclick="return checkboxcheck();">Submit</button>
+	<input type="text" id="emailTransfer" class="pull-right margin-right-20" name="emailTransfer" placeholder="Email" >
+	<span class="pull-right margin-right-20" ><strong>Transfer To</strong></span>
+	<div class="clearfix margin-bottom-20 "></div>
+
 		<table class="table-striped  table text-center ">
 			<tr>
+			<td><strong>Select</strong></td>
 				<td><strong>pin Number</strong></td>
 				<td><strong>Pin</strong></td>
 				<td><strong>Value</strong></td>
 				<td><strong>created on</strong></td>
-				<td><strong>created by</strong></td>
+				<td><strong>Used in</strong></td>
 				<td><strong>Status</strong></td>
 			</tr>
-			<?php foreach ($availbalePin as $key => $value) { ?>
+			<?php foreach ($availbalePin as $key => $value) { 
+					if ($value['PinWallet']['status'] ==1 ) { 
+						$status = '<td class="text-success">Active</td>';
+						$select = 1;
+					} else if ($value['PinWallet']['status'] ==0 ) {
+						$status = '<td class="text-danger">Rejected</td>';
+						$select =0;
+					} else if ($value['PinWallet']['status'] ==2 ) {
+						$status = '<td class="text-info">Used</td>';
+						$select = 0;
+					} else if ($value['PinWallet']['status'] ==3 ) {
+						$status = '<td class="text-warning">Payment painding</td>';
+						$select = 0;
+					} ?>
 				<tr>
+				<td> <?php if ($select ==1 ) {  ?>
+						<input type="checkbox" class="checkbox" name="<?php echo $value['PinWallet']['id'];?>" value="<?php echo $value['PinWallet']['id'];?>"></td>
+					<?php } else {?>
+						<input type="checkbox"  disabled class="checkbox" name="<?php echo $value['PinWallet']['id'];?>" value="<?php echo $value['PinWallet']['id'];?>"></td>
+					<?php } ?>
 					<td><?php echo $value['PinWallet']['id'];?></td>
 					<td><?php echo $value['PinWallet']['cypher_code'];?></td>
 					<td><?php echo PIN_PRICE;?></td>
 					<td><?php echo $value['PinWallet']['created'];?></td>
-					<?php if ( $value['PinWallet']['created_by'] == 'user') {
-						echo '<td>'.$this->Session->read('User.name').'</td>';
-					} else { ?>
-						<td><?php echo $value['PinWallet']['created_by'];?></td>
-					<?php } 
-					 if ($value['PinWallet']['status'] ==1 ) { 
-						echo '<td class="text-success">Active</td>';
-					} else if ($value['PinWallet']['status'] ==0 ) {
-						echo '<td class="text-danger">Rejected</td>';
-					} else if ($value['PinWallet']['status'] ==2 ) {
-						echo '<td class="text-info">Used</td>';
-					} else if ($value['PinWallet']['status'] ==3 ) {
-						echo '<td class="text-warning">Payment painding</td>';
-					} ?>
+					<?php if (empty($value['PinWallet']['used_on'])) {
+						echo '<td class="text-success">Not Used</td>';
+					} else {
+						echo "<td class='text-info'>".$value['PinWallet']['used_on']."</td>";
+					} 
+					echo $status; ?>	
 				</tr>
 			<?php } ?>
 		</table>
+		</form>
 		</div>
 </div>
 <div id="elementUser"  class="modal fade" role="dialog">
@@ -93,7 +111,7 @@
               </form>
            </div>
       </div>
-  </div>
+</div>
   <div id="elementShop"  class="modal fade" role="dialog">
       <div class="modal-content modal-dialog">
           <div class="modal-header">
@@ -150,6 +168,7 @@
 			<?php foreach ($pinShop as $key => $value) { ?>
 				<tr>
 					<td><input type="radio" class=" radio-inline"  name="paid" shoper="<?php echo $value['PinShop']['name'];?>" id="<?php echo $value['PinShop']['id'];?>"></td>
+					<td><input type="checkbox" name=""></td>
 					<td><?php echo $value['PinShop']['name'];?></td>
 					<td><?php echo $value['PinShop']['city'];?></td>
 					<td><?php echo $value['PinShop']['mobile'];?></td>
@@ -171,6 +190,12 @@ $(document).on('change', 'input:radio', function (event) {
     $("#shop").val(name) ;
     $( "#shopId" ).val(redio);
 });
+function checkboxcheck(){
+	if (!$(".checkbox").is(":checked")) {
+        alert("Please select atleast one pin to transfer");
+        return false;
+    }
+}
 function populateValue(){
 	var qunt = $("#shopPinQuantity").val() ;
 	var amt = qunt*<?php echo PIN_PRICE;?>;

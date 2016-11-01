@@ -40,6 +40,13 @@
 	Router::connect('/withdraw', array('controller' => 'desh_board', 'action' => 'incomeWallet'));
 	Router::connect('/History', array('controller' => 'desh_board', 'action' => 'txtHistory'));
 	Router::connect('/Pin', array('controller' => 'desh_board', 'action' => 'pinParachase'));
+	Router::connect('/visitor', array('controller' => 'authorised', 'action' => 'viewLeads'));
+	Router::connect('/addFranchise', array('controller' => 'authorised', 'action' => 'AddFranchise'));
+	Router::connect('/editFranchise/*', array('controller' => 'authorised', 'action' => 'editFranchise'));
+	Router::connect('/request', array('controller' => 'authorised', 'action' => 'pinParachase'));
+	Router::connect('/manage-users', array('controller' => 'authorised', 'action' => 'pinParachase'));
+	Router::connect('/generate', array('controller' => 'authorised', 'action' => 'generatePin'));
+
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

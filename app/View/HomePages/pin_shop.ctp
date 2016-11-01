@@ -14,6 +14,10 @@
 				<td><strong>Account. No.</strong></td>
 				<td><strong>Ifsc Code</strong></td>
 				<td><strong>Account Name</strong></td>
+				<?php if ($this->Session->read('User.is_admin') == 1) {
+					 echo '<td><strong>Edit</strong></td>';
+				} ?>
+				
 			</tr>
 			<?php foreach ($pinShop as $key => $value) { ?>
 				<tr>
@@ -24,6 +28,10 @@
 					<td><?php echo $value['PinShop']['account_number'];?></td>
 					<td><?php echo $value['PinShop']['ifsc'];?></td>
 					<td><?php echo $value['PinShop']['account_name'];?></td>
+					<?php if ($this->Session->read('User.is_admin') == 1) { ?>
+					 	<td><a href="<?php echo ABSOLUTE_URL;?>/editFranchise/<?php echo $value['PinShop']['id'];?>">Edit</a></td>
+					<?php } ?>
+					
 				</tr>
 			<?php } ?>
 		</table>

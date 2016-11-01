@@ -1,7 +1,10 @@
 
 <body>	
 <section id="inner-headline">
-  <h2 class="pageTitle text-center">Welcome <?php echo $this->Session->read('User.name');?></h2>
+  <h2 id="welcome" class="pageTitle text-center text-danger">Welcome <?php echo $this->Session->read('User.name');?></h2>
+  <?php if (!$this->Session->read('User.payment') || $this->Session->read('User.payment') != 1) { ?>
+  <span><a data-toggle="modal" data-target="#ActiveNow" class="btn pull-left btn-lg">Go Green</a></span>
+  <?php } ?>
 <?php echo $this->Session->flash(); ?>
 </section>
 
@@ -11,7 +14,26 @@
   </div>
 </div>
   </body>
-
+<div id="ActiveNow"  class="modal fade" role="dialog">
+      <div class="modal-content modal-dialog">
+          <div class="modal-header">
+              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Go Green Now</h4>
+          </div>
+          <div class="modal-body">
+             <div class="well">
+                  <form id="lactivationForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/home_pages/varificationGoGreen" data-toggle="validator" >
+                      <div class="form-group control-group">
+                          <label for="pin" class="control-label" >Pin</label>
+                          <input type="text" class="form-control" id="pin" name="pin" title="Please enter you username" placeholder="Enter your your pin" required>
+                          <span class="help-block"></span>
+                      </div>
+                      <button type="submit" class="btn btn-success btn-block">Login</button>
+                  </form>
+              </div>  
+          </div>
+      </div>
+  </div>
 <?php echo $this->element('bankForm'); ?>
 <style type="text/css">
   .border-radius{
@@ -84,9 +106,8 @@
 <script type="text/javascript">
 	
 </script>
- <?php if (isset($this->params['url']['bankDetails']) && $this->params['url']['bankDetails'] == 1) { ?>
+ <?php if ($this->Session->read('User.payment') && $this->Session->read('User.payment') == 1) { ?>
   <script>
-          alert("Thanks to update your bank details");
-          window.location = "<?php echo ABSOLUTE_URL.'/home_pages/deshBoard/'?>";</script>
+          $("#welcome").removeClass('text-danger');</script>
      
-    <?php } ?>
+  <?php } ?>

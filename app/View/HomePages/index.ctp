@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+  <?php echo $this->Session->flash(); ?>
     <body>
 
         

@@ -1,7 +1,7 @@
 <div class="container "> 
 <div class="row well ">
 	<h3 class="text-info"> Hi <?php echo $this->Session->read('User.name');?></h3>
-	<p>Hare your withdrawal requests</p>
+	<p>Here your withdrawal requests</p>
 </div>
 	<div class="row well ">
 	<h4 class="text-info">Withdrawal Request</h4>
@@ -28,7 +28,7 @@
 					<?php if ($value['WithdrawalRequests']['is_paid'] ==1 ) { 
 						echo '<td class="text-success">Completed</td>';
 					} else if ($value['WithdrawalRequests']['is_paid'] ==0 ) {
-						echo '<td class="text-info">Panding</td>';
+						echo '<td class="text-info">Pending</td>';
 					} else if ($value['WithdrawalRequests']['is_paid'] ==2 ) {
 						echo '<td class="text-danger">Rejected</td>';
 					} ?>

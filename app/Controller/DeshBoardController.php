@@ -16,7 +16,7 @@ class DeshBoardController extends AppController {
  *
  * @var array
  */
-	public $uses = array('GiveHelp','GetHelp','User','UserBank','ActiveZone','WithdrawalRequests','PinWallet','PinShop');
+	public $uses = array('Team','GetHelp','User','UserBank','ActiveZone','WithdrawalRequests','PinWallet','PinShop');
 
 /**
  * Displays a view
@@ -25,37 +25,7 @@ class DeshBoardController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-	function giveHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-	     if($this->data){
-	    	$userData = $this->Session->read('User');
-	    	$helpData['amount'] = $this->data['amount'];
-	    	$helpData['email'] = $userData['username'];
-	    	$helpData['user_id'] = $userData['UserId'];
-	    	$helpData['start_time'] = date("Y-m-d h:i:s");
-	    	$helpData['is_active'] = 1;
-	    	$helpData['end_time'] = date('Y-m-d h:i:s', strtotime(' +2 day'));
-	    	$this->GiveHelp->save($helpData);
-	    } else {
-	    	return false;
-	    }
-	}
-	function getHelp() {
-		$this->autoRender = false;
-	    $this->layout = "";
-	    if($this->data){
-	    	$userData = $this->Session->read('User');
-	    	$helpData['amount'] = $this->data['amount'];
-	    	$helpData['email'] = $userData['username'];
-	    	$helpData['user_id'] = $userData['UserId'];
-	    	$helpData['start_time'] = date("Y-m-d h:i:s");
-	    	$helpData['end_time'] = date('Y-m-d h:i:s', strtotime(' +2 day'));
-	    	$this->GetHelp->save($helpData);
-	    } else {
-	    	return false;
-	    } 
-	}
+
 	function saveBankDetails() {
 		$this->autoRender = false;
 	    $this->layout = "";
@@ -313,7 +283,11 @@ class DeshBoardController extends AppController {
         $user_id = $this->_checkLogin();
         $data = $this->getAllIncomes($user_id);
         $this->set('workingZone',$workingZone);
-        $this->set('walletData',$data);
+        $this->set('walletData',$workingZone);
+        $PinShop = $this->PinShop->find('all', array( 'conditions' => array('status' => 1)));
+        $this->set('pinShop' ,$PinShop );
+        $this->set('availbalePin',$pin);
+        $this->set('availbaleIncome',$data);
     }
     function widrowMoney(){
         $user_id = $this->_checkLogin();
@@ -339,14 +313,18 @@ class DeshBoardController extends AppController {
         $this->set('txtRequest',$withdrawZoneWise);
     }
     function pinParachase(){
-        $user_id = $this->_checkLogin();
-        $pin = $this->PinWallet->find('all', array('conditions' => array('user_id' => $user_id)
-        ));
-        $data = $this->getAllIncomes($user_id);
-        $PinShop = $this->PinShop->find('all', array( 'conditions' => array('status' => 1)));
-        $this->set('pinShop' ,$PinShop );
-        $this->set('availbalePin',$pin);
-        $this->set('availbaleIncome',$data);
+        $this->autoRender = false;
+         $user_id = $this->_checkLogin();
+         $pin = $this->PinWallet->find('all', array('conditions' => array('user_id' => $user_id)
+         ));
+         $userData = $this->User->find('all', array('conditions' => array('status' => 1)
+         ));
+         $data = $this->getAllIncomes($user_id);
+         $PinShop = $this->PinShop->find('all', array( 'conditions' => array('status' => 1)));
+         $this->set('UserData' ,$userData );
+         $this->set('pinShop' ,$PinShop );
+         $this->set('availbalePin',$pin);
+         $this->set('availbaleIncome',$data);
         if ($this->data) {
            // echo '<pre>'; print_r($this->data);die;
             $data['active'] = $this->data['Active'];
@@ -370,6 +348,8 @@ class DeshBoardController extends AppController {
             }
             $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        } else{
+            $this->render('pin_parachase');
         }
     }
     function pinRequestFromShop(){
@@ -400,5 +380,50 @@ class DeshBoardController extends AppController {
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
         }
     }
-    
+    function pinTransfer(){
+        $this->autoRender = false;
+        $this->layout = "";
+        if ($this->data) {
+             $user_id = $this->checkRegisterdGetId($this->data['emailTransfer'],1);
+             
+             foreach ($this->data as $key => $value) {
+                $pinId[] = $value;
+             }
+             $pinId[0] = '';
+            $ids = implode(",", $pinId);
+            //echo $ids;die;
+            $this->PinWallet->updateAll(array("user_id"=>$user_id),array("id"=>$pinId));
+            $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        } else {
+            $this->Session->setFlash('<div class="row text-center well"><h3 class="text-danger">Something went wrong please try again</h3></div>');
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
+        }
+    }
+    function Awards(){
+        $user_id = $this->_checkLogin();
+        $this->autoRender = false;
+        $this->layout = "";
+        $this->User->getAwardsData($this->Session->read('User.mobile'),1);
+        $this->Team->deleteAll(array('user_id' =>$user_id ));
+        foreach ($GLOBALS['Award'] as $key => $value) {
+            $value['user_id'] = $user_id;
+            $this->Team->create();
+            $this->Team->save($value);
+        }
+        $data = $this->Team->find('all', array(
+            'fields' => array('level','count(mobile)'),'conditions' => array('user_id'=>$user_id),'group' => 'level'
+            ));
+        $levels = Set::classicExtract($data, '{n}.Team.level');
+        
+        foreach ($data as $key => $value) {
+            if ($value[0]['count(mobile)'] == pow(3,$value['Team']['level'])) {
+                $globl[$key]['level'] = $value['Team']['level'];
+                $globl[$key]['count'] = $value[0]['count(mobile)'];
+            }
+            // $fglo[$value][] = $value;
+        }
+        echo '<pre>';print_r($globl);
+        die;
+    }
 }

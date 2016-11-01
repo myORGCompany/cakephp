@@ -54,6 +54,25 @@ class User extends AppModel {
             }  
         }
     }
+    function getAwardsData($mobile,$level = 1){
+        set_time_limit(0);
+        $price = Configure::read('incomeGlobleArray');
+        $users = $this->find('all', array(
+            'fields' => array("User.mobile",'User.sponcer','payment','email'),'conditions' => array('User.sponcer' => $mobile)
+        ));
+        $lev = $level +1;
+        //echo '<pre>##########'.$level.'######'; print_r($users);
+        if(!empty($users)){
+            foreach ($users as $key => $value) {
+                if($value['User']['payment'] == 1){
+                    $value['User']['level'] = $level;
+                    $value['User']['income'] = $price[$level] ;
+                    $GLOBALS['Award'][] = $value['User'];
+                }
+                $this->getAwardsData($value['User']['mobile'],$lev); 
+            }  
+        }
+    }
     function getSafeZoneTree($userData){
         $users = $this->find('all', array(
             'fields' => array("User.email",'User.sponcer','mobile','payment'),'conditions' => array('User.id >' => $userData['UserId'])

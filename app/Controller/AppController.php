@@ -37,6 +37,9 @@ class AppController extends Controller {
      if( !$this->Session->read('pop') ) {
           $this->Session->write('pop',0);
       }
+      if( !$this->Session->read('pop') ) {
+          $this->Session->write('LoginAttempts',0);
+      }
   }
 	function _import($model, $constructor = null) {
       try {
@@ -133,5 +136,26 @@ class AppController extends Controller {
         $data[2]['zone'] = 'Safe';
         $data[2]['income'] = ($safeCount*5) - $withdrawZoneWise['safe'];
         return $data;
+    }
+    function _checkAdminLogin(){
+        if( $this->Session->read('User') ) {
+           $Login =1;
+           $this->Session->write('Login' , 1);
+           $user = $this->Session->read('User');
+           if(empty($user['r1']) || $user['r1'] != 1){
+                $user_id =$user['user_id'];
+                $this->redirect( array( 'controller' => 'home_pages', 'action' => 'r1' ) );
+           }
+           if($user['status'] == 1 && $user['is_admin'] == 1){
+                $user_id =$user['UserId'];
+                return $user_id;
+           } else {
+                $this->Session->delete('User');
+                $this->Session->destroy();
+                $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=5' ) );
+           }
+        } else {
+            $this->redirect( array( 'controller' => 'home_pages', 'action' => 'index?status=6' ) );
+        }
     }
 }

@@ -55,14 +55,12 @@
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/plan">View Plan</a></li>
                                              <li><a href="<?php echo ABSOLUTE_URL;?>/home_pages/contactUs">Contact Us</a></li>
                                          </ul></li>
-                                     
                                        <li class="dropdown ">
                                         <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Total Income<span class="caret"></span></a>
                                          <ul class="dropdown-menu">
                                         <li><a   href="<?php echo ABSOLUTE_URL;?>/desh_board/income/active">Active-Zone Income</a>
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/working">Working-Zone Income</a></li> 
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/safe">Safe-Zone Income</a></li>
-                                        <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/royality">Royality</a></li>
                                         <li><a  href="<?php echo ABSOLUTE_URL;?>/desh_board/income/all">View all</a></li>
                                         </ul>
                                         </li>
@@ -73,11 +71,24 @@
                                         <li class=""><a href="<?php echo ABSOLUTE_URL;?>/Pin">Pin Wallet</a></li>
                                         <li class=""><a href="<?php echo ABSOLUTE_URL;?>/History">History</a></li>
                                         </ul></li>
-                                        <li class=""><a class="font-14" id="bank" data-toggle="modal" data-target="#bankForm" >Bank Details</a></li>
-                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li></ul>
-                                      
-                                       
-
+                                       <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Achievements<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/awards">Awards & Rewards</a></li>
+                                        <li class=""><a href="<?php echo ABSOLUTE_URL;?>/Royality">Royality</a></li>
+                                        </ul></li>
+                                      <li class=""><a class="font-14" href="<?php echo ABSOLUTE_URL;?>/home_pages/logout/">Logout</a></li>
+                                      <?php if ($this->Session->read('User.is_admin') ==1) { ?>
+                                          <li class="dropdown ">
+                                        <a class="font-14" href="#" class="dropdown-toggle font-14" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                                         <ul class="dropdown-menu">
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/visitor">View Vsitors</a></li>
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/addFranchise">Add franchise</a></li>
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/request">View Request</a></li>
+                                             <li><a href="<?php echo ABSOLUTE_URL;?>/manage-users">Manage Users</a></li>
+                                             <li><a rel="nofollow" class="external-link" data-toggle="modal" data-target="#elementPinGen">Genrate Pin</a></li>
+                                         </ul></li></ul>
+                                         <?php } else { echo '</ul>';} ?>
                                <?php } ?>
                     </div>
                     
@@ -148,7 +159,37 @@
   </div>
   
   <input type="hidden" id="tempLoginVar" value="0" /> 
- 
+ <div id="elementPinGen"  class="modal fade" role="dialog">
+      <div class="modal-content modal-dialog">
+          <div class="modal-header">
+              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="heading">Please fill the number of pin required</h4>
+          </div>
+          <div class="modal-body well margin-bottom-0">
+                <form action="<?php echo ABSOLUTE_URL;?>/generate" method="Post"  id="generatepinBuy">
+                  <div class="row">
+                    <table class="table table-bordered c-table">
+                  
+                      <tr class="form-group control-group ">
+                        <td class="">
+                          Quantity
+                        </td>
+                        <td class="controls card-text">
+                          <input type="text" onchange="caculate();" class="form-control required" class="form-control required" id="Pinquantity" name="quantity">
+                        </td>
+                        <td>Total</td>
+                        <td class="controls card-text">
+                          <input type="text" readonly class="form-control" id="tot" name="tot">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                <button class="btn btn-primary" onclick="closepopup()" type="submit">Submit</button>
+                <span class="pull-right"><strong>*NOTE: 1 Pin Cost is = <?php echo PIN_PRICE;?></strong></span>
+              </form>
+           </div>
+      </div>
+</div>
 <script type="text/javascript">
    
     function openClose(){
@@ -162,6 +203,9 @@
             $("#login .close").click();
             $("#register").click();
        // });
+    }
+    function closepopup(){
+      $("#elementPinGen .close").click();
     }
     $(document).ready(function () {
      $('ul.nav li.dropdown').hover(function() {
@@ -242,5 +286,9 @@
             }
         });
     }
-   
+   function caculate(){
+       var val = $("#Pinquantity").val();
+       var pinValue = val*<?php echo PIN_PRICE;?>;
+       $("#tot").val(pinValue);
+   }
 </script>

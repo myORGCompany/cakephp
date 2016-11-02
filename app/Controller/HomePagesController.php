@@ -16,7 +16,8 @@ class HomePagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('UserBank','Team','User','GetHelp','PopLead','PinShop','UserProfile','PinWallet');
+	public $uses = array('UserBank','Team','User','GetHelp','PopLead','PinShop','UserProfile','PinWallet',
+		'WithdrawalRequests');
 
 /**
  * Displays a view

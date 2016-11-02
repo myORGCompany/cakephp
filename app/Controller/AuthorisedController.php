@@ -107,12 +107,17 @@ class AuthorisedController extends AppController {
 			    }
 			    echo implode("\t", array_values($value)) . "\r\n";
 			}
-			
-        //     $this->Session->setFlash('<div class="row text-center well"><h3 class="text-success">Thank you your requiest submitted successfully</h3></div>');
-        //     $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
-        // } else {
-        //     $this->Session->setFlash('<div class="row text-center well"><h3 class="text-danger">Something went wrong please try again</h3></div>');
-        //     $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
-        }
+		}
     }
+    function viewRequest(){
+		//$this->layout = "default";
+		$this->autoRender = false;
+		$data = $this->WithdrawalRequests->find('all', array( 'conditions' => array('is_paid =0 or is_paid = 1')));
+		$users = Set::classicExtract($data, '{n}.WithdrawalRequests.user_id');
+		$Userdata = $this->User->find('list', array( 'fields' => array('email'),'conditions' => array('id' => $users)));
+		//echo '<pre>';print_r($Userdata);die;
+		$this->set('txtRequest',$data);
+		$this->set('Userdata',$Userdata);
+		$this->render('../DeshBoard/txt_history');
+	}
 }

@@ -84,7 +84,7 @@
                                          <ul class="dropdown-menu">
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/visitor">View Vsitors</a></li>
                                             <li><a href="<?php echo ABSOLUTE_URL;?>/addFranchise">Add franchise</a></li>
-                                            <li><a href="<?php echo ABSOLUTE_URL;?>/request">View Request</a></li>
+                                            <li><a href="<?php echo ABSOLUTE_URL;?>/requestUsers">View Request</a></li>
                                              <li><a href="<?php echo ABSOLUTE_URL;?>/manage-users">Manage Users</a></li>
                                              <li><a rel="nofollow" class="external-link" data-toggle="modal" data-target="#elementPinGen">Genrate Pin</a></li>
                                          </ul></li></ul>

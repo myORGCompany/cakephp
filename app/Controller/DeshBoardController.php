@@ -52,15 +52,8 @@ class DeshBoardController extends AppController {
 	function adminLogin(){
         $user_id = $this->_checkLogin();
 		$userData = $this->Session->read('User');
-		$data['giveHelp'] = $this->GiveHelp->find('all', array( 'fields' =>array('User.name','GiveHelp.user_id','GiveHelp.amount','GiveHelp.start_time','User.email'),'conditions' => array('GiveHelp.is_active' => 1),
-			'joins' => array(
-                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('GiveHelp.user_id = User.id'))
-                )));
-		$data['getHelp'] = $this->GetHelp->find('all', array( 'fields' =>array('User.name','GetHelp.user_id','GetHelp.amount','GetHelp.start_time','User.email'),'conditions' => array('GetHelp.is_active' => 1),
-			'joins' => array(
-                    array('table'=>'users','alias'=>'User','type'=>'inner','conditions'=>array('GetHelp.user_id = User.id'))
-                )));
-		$this->set('HelpRecords',$data);
+		
+		
 	}
 	function acceptGetHelp() {
 		$this->autoRender = false;
@@ -400,30 +393,54 @@ class DeshBoardController extends AppController {
             $this->redirect( array( 'controller' => 'home_pages', 'action' => 'deshBoard' ) );
         }
     }
-    function Awards(){
-        $user_id = $this->_checkLogin();
-        $this->autoRender = false;
-        $this->layout = "";
+    function insertInSqlAwrds( $user_id = null ){
         $this->User->getAwardsData($this->Session->read('User.mobile'),1);
         $this->Team->deleteAll(array('user_id' =>$user_id ));
         foreach ($GLOBALS['Award'] as $key => $value) {
             $value['user_id'] = $user_id;
             $this->Team->create();
             $this->Team->save($value);
+        } 
+    }
+    function Awards($dateType = null){
+        $user_id = $this->_checkLogin();
+        if($dateType == 1){
+            $this->insertInSqlAwrds($user_id);
         }
-        $data = $this->Team->find('all', array(
-            'fields' => array('level','count(mobile)'),'conditions' => array('user_id'=>$user_id),'group' => 'level'
-            ));
-        $levels = Set::classicExtract($data, '{n}.Team.level');
-        
+        $created = $this->Session->read('User.created');
+        $date = "created > DATE_SUB('$created', INTERVAL $dateType month)";
+        $data = $this->Team->find('all', array('fields' => array('level','count(mobile)'),'conditions' => array('user_id'=>$user_id,$date),'group' => 'level'));
         foreach ($data as $key => $value) {
             if ($value[0]['count(mobile)'] == pow(3,$value['Team']['level'])) {
                 $globl[$key]['level'] = $value['Team']['level'];
                 $globl[$key]['count'] = $value[0]['count(mobile)'];
+                $globl[$key]['type'] = $dateType;
             }
-            // $fglo[$value][] = $value;
         }
-        echo '<pre>';print_r($globl);
-        die;
+       // echo '<pre>';print_r($globl);
+        return $globl;
+    }
+    function awardsAndRewards(){
+        set_time_limit(0);
+        $user_id = $this->_checkLogin();
+        for ($i=1; $i < 6; $i++) { 
+            $Month[$i] = $this->Awards($i);
+        }
+         //echo '<pre>';print_r($Month);die;
+        foreach ($Month as $value) {
+            foreach ($value as $key => $value2) {
+                if ($value2['level'] >= 1) {
+                    $Awards[] = $value2;
+                }
+                if ($value2['level'] >= 9) {
+                    $this->User->updateAll(array("royality"=>1),array("id"=>$user_id));
+                }
+            }
+        }
+        //echo '<pre>';print_r($Awards);die;
+       $this->set('Awards',$Awards);
+    }
+    function royality(){
+        
     }
 }

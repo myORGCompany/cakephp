@@ -58,7 +58,7 @@ class User extends AppModel {
         set_time_limit(0);
         $price = Configure::read('incomeGlobleArray');
         $users = $this->find('all', array(
-            'fields' => array("User.mobile",'User.sponcer','payment','email'),'conditions' => array('User.sponcer' => $mobile)
+            'fields' => array("User.mobile",'User.sponcer','payment','email','created'),'conditions' => array('User.sponcer' => $mobile)
         ));
         $lev = $level +1;
         //echo '<pre>##########'.$level.'######'; print_r($users);

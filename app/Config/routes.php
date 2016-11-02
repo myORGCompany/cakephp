@@ -46,6 +46,9 @@
 	Router::connect('/request', array('controller' => 'authorised', 'action' => 'pinParachase'));
 	Router::connect('/manage-users', array('controller' => 'authorised', 'action' => 'pinParachase'));
 	Router::connect('/generate', array('controller' => 'authorised', 'action' => 'generatePin'));
+	Router::connect('/awards', array('controller' => 'desh_board', 'action' => 'awardsAndRewards'));
+	Router::connect('/Royality', array('controller' => 'desh_board', 'action' => 'royality'));
+	Router::connect('/requestUsers', array('controller' => 'authorised', 'action' => 'viewRequest'));
 
 
 /**

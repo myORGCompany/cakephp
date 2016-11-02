@@ -15,6 +15,10 @@
 				<td><strong>Other</strong></td>
 				<td><strong>Total</strong></td>
 				<td><strong>Status</strong></td>
+				<?php if (isset($Userdata) && !empty($Userdata)) {
+					echo '<td><strong>User</strong></td>';
+				} ?>
+				
 			</tr>
 			<?php foreach ($txtRequest as $key => $value) { ?>
 				<tr>
@@ -32,6 +36,9 @@
 					} else if ($value['WithdrawalRequests']['is_paid'] ==2 ) {
 						echo '<td class="text-danger">Rejected</td>';
 					} ?>
+					<?php if (isset($Userdata) && !empty($Userdata)) {
+					echo '<td>'.$Userdata[$value['WithdrawalRequests']['user_id']].'</td>';
+				} ?>
 				</tr>
 			<?php } ?>
 		</table>

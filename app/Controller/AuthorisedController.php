@@ -120,4 +120,14 @@ class AuthorisedController extends AppController {
 		$this->set('Userdata',$Userdata);
 		$this->render('../DeshBoard/txt_history');
 	}
+	function viewAndEditPin(){
+		$this->autoRender = false;
+		$data = $this->PinWallet->find('all', array());
+		$users = Set::classicExtract($data, '{n}.PinWallet.user_id');
+		$Userdata = $this->User->find('list', array( 'fields' => array('email'),'conditions' => array('id' => $users)));
+		//echo '<pre>';print_r($Userdata);die;
+		$this->set('availbalePin',$data);
+		$this->set('Userdata',$Userdata);
+		$this->render('../DeshBoard/pin_parachase');
+	}
 }

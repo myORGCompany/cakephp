@@ -49,6 +49,7 @@
 	Router::connect('/awards', array('controller' => 'desh_board', 'action' => 'awardsAndRewards'));
 	Router::connect('/Royality', array('controller' => 'desh_board', 'action' => 'royality'));
 	Router::connect('/requestUsers', array('controller' => 'authorised', 'action' => 'viewRequest'));
+	Router::connect('/revenewReport', array('controller' => 'authorised', 'action' => 'viewAndEditPin'));
 
 
 /**

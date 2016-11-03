@@ -1,11 +1,13 @@
 <div class="container "> 
 <div class="row well ">
 	<h3 class="text-info"> Hi <?php echo $this->Session->read('User.name');?></h3>
+	<?php if($this->action != 'viewAndEditPin') { ?>
 	<div class="row">
 		<h4 class="pull-left" style="margin-left:15px;">Hare your pin history</h4>
 		<button  data-toggle="modal" data-target="#elementUser" class="btn btn-default external-link pull-right">Generate New Pin From Wallet</button>
 		<button  data-toggle="modal" data-target="#elementShop" class="btn btn-default external-link pull-right">Parchage New Pin From Store</button>
 	</div>
+	<?php } ?>
 </div>
 	<div class="row well ">
 	<form action="<?php echo ABSOLUTE_URL;?>/desh_board/pinTransfer" method="post">
@@ -22,6 +24,9 @@
 				<td><strong>Pin</strong></td>
 				<td><strong>Value</strong></td>
 				<td><strong>created on</strong></td>
+				<?php if (isset($Userdata) && !empty($Userdata)) {
+					echo '<td><strong>Created by</strong></td>';
+				} ?>
 				<td><strong>Used in</strong></td>
 				<td><strong>Status</strong></td>
 			</tr>
@@ -49,6 +54,9 @@
 					<td><?php echo $value['PinWallet']['cypher_code'];?></td>
 					<td><?php echo PIN_PRICE;?></td>
 					<td><?php echo $value['PinWallet']['created'];?></td>
+					<?php if (isset($Userdata) && !empty($Userdata)) {
+						echo '<td>'.$Userdata[$value['PinWallet']['user_id']].'</td>';
+					} ?>
 					<?php if (empty($value['PinWallet']['used_on'])) {
 						echo '<td class="text-success">Not Used</td>';
 					} else {

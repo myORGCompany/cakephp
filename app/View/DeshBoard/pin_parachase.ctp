@@ -55,7 +55,7 @@
 					<td><?php echo PIN_PRICE;?></td>
 					<td><?php echo $value['PinWallet']['created'];?></td>
 					<?php if (isset($Userdata) && !empty($Userdata)) {
-						echo '<td>'.$Userdata[$value['PinWallet']['user_id']].'</td>';
+						echo '<td>'.$value[$value['PinWallet']['user_id']].'</td>';
 					} ?>
 					<?php if (empty($value['PinWallet']['used_on'])) {
 						echo '<td class="text-success">Not Used</td>';

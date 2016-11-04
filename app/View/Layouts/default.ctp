@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Wellcome to Fortune Power </title>
+        <title>Welcome to Fortune Power </title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.min.js"></script> 

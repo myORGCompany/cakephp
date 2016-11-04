@@ -2,8 +2,8 @@
 <body>	
 <section id="inner-headline">
 <div class="container">
-	<h2 class="pageTitle text-center">Wellcome <?php echo $this->Session->read('User.name');?></h2>
-	</div>
+	<h2 class="pageTitle text-center">Welcome <?php echo $this->Session->read('User.name');?></h2>
+	</div
 	</section>
 <div class="container">
 <?php if (!empty($HelpRecords)) { ?>

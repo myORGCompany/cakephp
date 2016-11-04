@@ -1,6 +1,6 @@
 <div class="container "> 
 <div class="row well ">
-    <h2 class="text-danger text-center">Wellcome <?php echo $this->Session->read('User.name');?></h2>
+    <h2 class="text-danger text-center">Welcome <?php echo $this->Session->read('User.name');?></h2>
 </div>
     <div class="row well ">
     <h4 class="text-info">Visitors list</h4>

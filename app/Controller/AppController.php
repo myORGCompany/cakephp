@@ -37,6 +37,9 @@ class AppController extends Controller {
      if( !$this->Session->read('pop') ) {
           $this->Session->write('pop',0);
       }
+      if( !$this->Session->read('team') ) {
+          $this->Session->write('team',0);
+      }
       if( !$this->Session->read('pop') ) {
           $this->Session->write('LoginAttempts',0);
       }

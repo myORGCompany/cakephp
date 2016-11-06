@@ -41,7 +41,7 @@ class HomePagesController extends AppController {
 	function registration() {
 		$this->autoRender = false;
 	    $this->layout = "";
-	     $response = array(
+	    $response = array(
             'hasError' => true,
             'messages' => "Either email or password is incorrect!",
             'redirect' => false

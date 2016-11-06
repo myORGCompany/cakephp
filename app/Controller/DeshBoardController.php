@@ -401,10 +401,11 @@ class DeshBoardController extends AppController {
             $this->Team->create();
             $this->Team->save($value);
         } 
+        $this->Session->write('team',1);
     }
     function Awards($dateType = null){
         $user_id = $this->_checkLogin();
-        if($dateType == 1){
+        if($dateType == 1 && $this->Session->read('team') == 0){
             $this->insertInSqlAwrds($user_id);
         }
         $created = $this->Session->read('User.created');

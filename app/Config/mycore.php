@@ -1,5 +1,5 @@
 <?php  
 
- define('DOCUMENT_ROOT','/var/www/html/cakephp');
+ define('DOCUMENT_ROOT','/var/www/html/fortune');
 
 ?>

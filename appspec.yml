@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html/fortune
+permissions:
+   - object: /var/www/html/fortune
+     pattern: "*"
+     owner: ec2-user
+     group: www
+     mode: 755
+     type:
+      - file
+hooks:
+  BeforeInstall:
+    - location: pre_deploy.sh
+  AfterInstall:
+    - location: deploy.sh

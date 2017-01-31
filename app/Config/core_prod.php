@@ -393,8 +393,8 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
-$fullurl=FULL_BASE_URL.'/fortune';
+$fullurl=FULL_BASE_URL;
 
 define('ABSOLUTE_URL',$fullurl);
 define('STATIC_PATH',$fullurl);
-define('GO_JS_PATH',FULL_BASE_URL.'/cakephp/release/go.js');
+define('GO_JS_PATH',FULL_BASE_URL.'/release/go.js');
